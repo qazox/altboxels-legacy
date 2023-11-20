@@ -73,6 +73,8 @@ Canvas.prototype.render = function () {
         let y = i % this.height;
 
         let block = mainTiles.tiles[this.blocks[i]];
+        if (block.color === 'none') continue;
+
         this.ctx.fillStyle = block.color;
 
         this.ctx.fillRect(

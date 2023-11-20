@@ -6,6 +6,8 @@
     saturation: Maximum mass for gravity reactions to occur
 */
 
+let air = mainTiles.resolveID('Vanilla/Core','Air');
+
 function gravity(event, mass, fluid, saturation) {
     if (event.type != 'tick') return;
     
@@ -26,12 +28,16 @@ function gravity(event, mass, fluid, saturation) {
             if (blok == -1) continue;
 
             let mass2 = mainTiles.tiles[blok].attributes.mass;
+
+            density += mass2;
+            if (density > saturation) break;
+
+            if (blok == currBlock) continue;
+
             let massDiff = (mass / mass2) - (mass2 / mass);
             let x2 = x / fluid;
             let dirDiff = (y - 1 + fluid) / (Math.sqrt(x2*x2 + y*y));
 
-            density += mass2;
-            if (density > saturation) break;
 
             if (y == 0 && x == 0) dirDiff = 0;
             if (isNaN(dirDiff)) dirDiff = 0;
@@ -47,7 +53,7 @@ function gravity(event, mass, fluid, saturation) {
     dir[1] = (Math.abs(force[1]) < .5) ? 0 : Math.sign(force[1]);
 
     if (density > saturation ) {
-        if ( chunks.getBlock(cx, cy + 1) == mainTiles.resolveID('Vanilla/Core','Air')) {
+        if ( chunks.getBlock(cx, cy + 1) == air) {
             dir = [0,1];
         } else {
             dir = [0,0];

@@ -8,7 +8,7 @@
 mainTiles.loadSet(
     'Vanilla/Core',
     [
-        new Tile('rgba(0, 0, 0, 0)', 'Air').gravity(1.204, 4, 9800),
+        new Tile('none', 'Air').gravity(1.204, 4, 9800),
         new Tile('rgb(153, 102, 51)', 'Earth').gravity(1000, 1, 9800),
 
         new Tile('rgb(255, 102, 0)', 'Fire').gravity(1.15, 3, 9800)
