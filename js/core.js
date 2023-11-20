@@ -6,6 +6,7 @@ function Canvas(width, height, upscale) {
     this.width = width;
     this.height = height;
     this.upscale = upscale;
+    this.radius = 2s;
 
     this.x = 0;
     this.y = 0;
@@ -19,13 +20,21 @@ function Canvas(width, height, upscale) {
 
     let that = this;
 
-    this.elem.addEventListener('mousedown', function (e)  {
+    this.elem.addEventListener('mousedown', function (e) {
         that.clicked = true;
     });
 
     this.elem.addEventListener('mousemove', function (e) {
+        that.firstX = (that.pageX == undefined) ? e.pageX : that.pageX;
+        that.firstY = (that.pageY == undefined) ? e.pageY : that.pageY;
         that.pageX = e.pageX;
         that.pageY = e.pageY;
+    })
+
+    this.elem.addEventListener('wheel', function (e) {
+        console.log(e.deltaY)
+        that.radius += Math.sign(e.deltaY);
+        if (that.radius < 1) that.radius = 1;
     })
 
     this.elem.addEventListener('mouseup', function (e) {
@@ -75,18 +84,40 @@ Canvas.prototype.render = function () {
     }
 }
 
+/* TODO: cleanup again */
 Canvas.prototype.click = function () {
     let x = (this.pageX - this.elem.getBoundingClientRect().x + this.x) / this.upscale;
     let y = (this.pageY - this.elem.getBoundingClientRect().y + this.y) / this.upscale;
-    
+
+    let x2 = (this.firstX - this.elem.getBoundingClientRect().x + this.x) / this.upscale;
+    let y2 = (this.firstY - this.elem.getBoundingClientRect().y + this.y) / this.upscale;
+
     x = Math.floor(x);
     y = Math.floor(y);
 
-    let blox = this.getBlock(x,y);
+    let x3 = x2 = Math.floor(x2);
+    let y3 = y2 = Math.floor(y2);
 
-    if (blox == -1) return;
+    do {
+        if (Math.abs(x3 - x) > Math.abs(y3 - y)) {
+            x3 += Math.sign(x - x3)
+        } else {
+            y3 += Math.sign(y - y3)
+        }
 
-    this.setBlock(x,y,mainTiles.sel);
+        for (let x4 = x3 - this.radius; x4 <= x3 + this.radius; x4++) {
+            for (let y4 = y3 - this.radius; y4 <= y3 + this.radius; y4++) {
+
+                let blox = this.getBlock(x4, y4);
+
+                if (blox == -1) continue;
+
+                this.setBlock(x4, y4, mainTiles.sel);
+            }
+        }
+
+    } while (x3 != x && y3 != y)
+
 }
 
 var canvas = new Canvas(160, 90, 4);
