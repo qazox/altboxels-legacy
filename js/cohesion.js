@@ -3,7 +3,7 @@
 */
 
 
-function cohesion(event) {
+function cohesion(event, radius, isAll) {
     if (event.type != 'tick') return;
     
     let cx = event.data[0];
@@ -15,16 +15,23 @@ function cohesion(event) {
 
     let currBlock = chunks.getBlock(cx, cy);
 
-    for (let x = -2; x < 3; x ++) {
-        for (let y = -2; y < 3; y++) {
-            if (chunks.getBlock(cx + x, cy + y) != currBlock) continue;
+    for (let x = -radius; x <= radius; x ++) {
+        for (let y = -radius; y <= radius; y++) {
+            if (chunks.getBlock(cx + x, cy + y) != currBlock && !isAll) continue;
+            if (chunks.getBlock(cx + x, cy + y) != mainTiles.resolveID("Vanilla/Core","Air") && !isAll) continue;
             force[0] += x / (0.1+Math.sqrt(x*x + y*y));
             force[1] += y / (0.1+Math.sqrt(x*x + y*y));
         }
     }
 
-    dir[0] = (Math.abs(force[0]) < .4) ? 0 : Math.sign(force[0]);
-    dir[1] = (Math.abs(force[1]) < .4) ? 0 : Math.sign(force[1]);
+    dir[0] = (Math.abs(force[0]) < radius*0.3) ? 0 : Math.sign(force[0]);
+    dir[1] = (Math.abs(force[1]) < radius*0.3) ? 0 : Math.sign(force[1]);
+
+    if (Math.abs(force[0]) < Math.abs(force[1])) {
+        force[0] = 0
+    } else {
+        force[1] = 0
+    }
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
@@ -37,9 +44,9 @@ function cohesion(event) {
     chunks.setBlock(cx + dir[0], cy + dir[1], currBlock);
 }
 
-Tile.prototype.cohesion = function () {
+Tile.prototype.cohesion = function (radius, isAll) {
     this.interactions.push(function (event) {
-        cohesion(event)
+        cohesion(event, radius, isAll)
     });
     return this;
 }
