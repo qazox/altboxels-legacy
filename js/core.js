@@ -41,7 +41,7 @@ function Canvas(width, height, upscale) {
 }
 
 Canvas.prototype.getBlock = function (x, y) {
-    if (x < 0 || y < 0 || x >= this.width || y >= this.height) return -1;
+    if (x < 0 || y < 0 || x >= this.width || y >= this.height || (this.blocks[x * this.height + y] == undefined)) return -1;
     return this.blocks[x * this.height + y];
 }
 

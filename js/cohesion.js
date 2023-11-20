@@ -28,7 +28,7 @@ function cohesion(event) {
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
-    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
+    if (currBlock == -1 || offBlock != mainTiles.resolveID('Vanilla/Core','Air') || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
     //chunks.noTick[cx*chunks.height + cy] = true;
     //chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;

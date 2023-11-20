@@ -39,6 +39,8 @@ function gravity(event, mass, fluid) {
 
     if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
+    if (mainTiles.tiles[offBlock].attributes.noGravity) return;
+
     chunks.noTick[cx*chunks.height + cy] = true;
     chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;
 
@@ -51,5 +53,11 @@ Tile.prototype.gravity = function (mass, fluid) {
         gravity(event, mass, fluid)
     });
     this.attributes.mass = mass;
+    return this;
+}
+
+
+Tile.prototype.unGravity = function () {
+    this.attributes.noGravity = true;
     return this;
 }
