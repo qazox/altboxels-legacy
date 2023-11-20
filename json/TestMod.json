@@ -1,21 +1,24 @@
 [
-{
-    "namespace": "TestMod/CoolStuff",
-    "content": [
-        {
-            "color": "rgba(69,69,69)",
-            "name": "Test Item",
-            "params": [
-                {
-                    "func": "cohesion",
-                    "options": []
-                },
-                {
-                    "func": "gravity",
-                    "options": [50000, 7]
-                }
-            ]
-        }
-    ]
-}
+    {
+        "namespace": "TestMod/CoolStuff",
+        "content": [
+            {
+                "color": "rgba(69,69,69)",
+                "name": "Test Item",
+                "params": [
+                    {
+                        "func": "cohesion",
+                        "options": []
+                    },
+                    {
+                        "func": "gravity",
+                        "options": [
+                            50000,
+                            7
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 ]

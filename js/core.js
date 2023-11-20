@@ -17,7 +17,25 @@ function Canvas(width, height, upscale) {
 
     this.sel = -1;
 
-    this.elem.addEventListener('mousedown', (e) => this.click(e));
+    let that = this;
+
+    this.elem.addEventListener('mousedown', function (e)  {
+        that.clicked = true;
+    });
+
+    this.elem.addEventListener('mousemove', function (e) {
+        that.pageX = e.pageX;
+        that.pageY = e.pageY;
+    })
+
+    this.elem.addEventListener('mouseup', function (e) {
+        that.clicked = false;
+    });
+
+
+    this.clicked = false;
+    this.pageX = 0;
+    this.pageY = 0;
 
     this.resize();
 }
@@ -57,9 +75,9 @@ Canvas.prototype.render = function () {
     }
 }
 
-Canvas.prototype.click = function (e) {
-    let x = (e.pageX - this.elem.getBoundingClientRect().x + this.x) / this.upscale;
-    let y = (e.pageY - this.elem.getBoundingClientRect().y + this.y) / this.upscale;
+Canvas.prototype.click = function () {
+    let x = (this.pageX - this.elem.getBoundingClientRect().x + this.x) / this.upscale;
+    let y = (this.pageY - this.elem.getBoundingClientRect().y + this.y) / this.upscale;
     
     x = Math.floor(x);
     y = Math.floor(y);
@@ -77,6 +95,7 @@ canvas.setBlock(52, 52, 1);
 
 (async function () {
     while (true) {
+        if (canvas.clicked) canvas.click();
         await handler.tick();
         await new Promise(resolve => setTimeout(resolve, 1000 / 70));
     }
