@@ -32,9 +32,8 @@ function Canvas(width, height, upscale) {
     })
 
     this.elem.addEventListener('wheel', function (e) {
-        console.log(e.deltaY)
         that.radius += Math.sign(e.deltaY);
-        if (that.radius < 1) that.radius = 1;
+        if (that.radius < 0) that.radius = 0;
     })
 
     this.elem.addEventListener('mouseup', function (e) {
@@ -84,6 +83,15 @@ Canvas.prototype.render = function () {
             this.upscale
         )
     }
+
+    /* TODO: clean up */
+
+    let x = (this.pageX - this.elem.getBoundingClientRect().x + this.x) - 0.5 - this.radius * this.upscale;
+    let y = (this.pageY - this.elem.getBoundingClientRect().y + this.y) - 0.5 -this.radius* this.upscale;
+
+    this.ctx.strokeStyle = 'rgb(255,255,255)';
+    this.ctx.lineWidth = 2;
+    this.ctx.strokeRect(x,y,this.radius * 2 * this.upscale+2,this.radius * 2 * this.upscale + 2);
 }
 
 /* TODO: cleanup again */
