@@ -19,7 +19,7 @@ function combine(event, inBlock, outBlock, outBlock2) {
     let currBlock = chunks.getBlock(cx, cy);
 
     for (let x = -1; x < 2; x++) {
-        for (let y = -1; y < 2; y++) {
+        for (let y = 1; y >= -1; y--) {
             if (chunks.getBlock(cx + x, cy + y) == inBlock) {
                 dir = [x, y];
                 continue;
