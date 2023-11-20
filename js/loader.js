@@ -15,7 +15,8 @@
 
 legalFuncs = [
     "gravity",
-    "cohesion"
+    "cohesion",
+    "combine"
 ]
 
 function loadTiles(stuff) {

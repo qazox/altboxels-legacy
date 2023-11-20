@@ -8,9 +8,10 @@
 mainTiles.loadSet(
     'Vanilla/Core',
     [
-        new Tile('rgba(0, 0, 0, 0)', 'Air').gravity(1.204,4),
-        new Tile('rgb(153, 102, 51)', 'Earth').gravity(1000,1),
-        new Tile('rgb(255, 102, 0)', 'Fire').gravity(0.8,3),
-        new Tile('rgb(51, 153, 255)', 'Water').cohesion().gravity(900,2),
+        new Tile('rgba(0, 0, 0, 0)', 'Air').gravity(1.204, 4),
+        new Tile('rgb(153, 102, 51)', 'Earth').gravity(1000, 1),
+        new Tile('rgb(255, 102, 0)', 'Fire').gravity(0.8, 3),
+        new Tile('rgb(51, 153, 255)', 'Water').cohesion().gravity(900, 2).combine(['Vanilla/Core', 'Earth'],['Vanilla/Core','Mud'],['Vanilla/Core','Air']),
+        new Tile('rgb(53,46,32)', 'Mud').gravity(950, 1.5),
     ]
 );

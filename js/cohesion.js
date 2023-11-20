@@ -1,5 +1,5 @@
 /*
-    Code for cohesion. Allows water to stick to itself without spreading apart too much./
+    Code for cohesion. Allows water to stick to itself without spreading apart too much.
 */
 
 
