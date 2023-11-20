@@ -3,7 +3,6 @@
     TOOD: clean this up too
 */
 
-
 function combine(event, inBlock, outBlock, outBlock2) {
     if (event.type != 'tick') return;
 
@@ -31,9 +30,6 @@ function combine(event, inBlock, outBlock, outBlock2) {
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
     if (currBlock == -1 || offBlock == -1 || (dir[0] == 0 && dir[1] == 0) || chunks.noTick[(cx + dir[0]) * chunks.height + (cy + dir[1])]) return;
-
-    //chunks.noTick[cx*chunks.height + cy] = true;
-    //chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;
 
     chunks.setBlock(cx, cy, outBlock);
     chunks.setBlock(cx + dir[0], cy + dir[1], outBlock2);

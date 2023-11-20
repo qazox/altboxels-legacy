@@ -80,7 +80,6 @@ Tile.prototype.gravity = function (mass, fluid, saturation) {
     return this;
 }
 
-
 Tile.prototype.unGravity = function () {
     this.attributes.noGravity = true;
     return this;

@@ -2,9 +2,6 @@
     Code for global game ticks.
 */ 
 
-const DECODER = new TextDecoder("utf-8");
-const ENCODER = new TextEncoder("utf-8");
-
 function TickHandler(canvas) {
     this.canvas = canvas;
     this.ticks = 0;
@@ -28,6 +25,4 @@ TickHandler.prototype.tick = async function() {
 
     this.ticks++;
     this.ticks = this.ticks % 3600;
-
-    // new GameEvent('tick', this.canvas.player, [], this.canvas);
 }
