@@ -18,7 +18,7 @@ function cohesion(event, radius, isAll) {
     for (let x = -radius; x <= radius; x ++) {
         for (let y = -radius; y <= radius; y++) {
             if (chunks.getBlock(cx + x, cy + y) != currBlock && !isAll) continue;
-            if (chunks.getBlock(cx + x, cy + y) != mainTiles.resolveID("Vanilla/Core","Air") && !isAll) continue;
+            if (chunks.getBlock(cx + x, cy + y) == mainTiles.resolveID("Vanilla/Core","Air") && isAll) continue;
             force[0] += x / (0.1+Math.sqrt(x*x + y*y));
             force[1] += y / (0.1+Math.sqrt(x*x + y*y));
         }
