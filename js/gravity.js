@@ -1,8 +1,12 @@
 /*
     Code for gravity.
+
+    mass: Density (in kg/cm^3)
+    fluid: Spread of substance
+    saturation: Maximum mass for gravity reactions to occur
 */
 
-function gravity(event, mass, fluid) {
+function gravity(event, mass, fluid, saturation) {
     if (event.type != 'tick') return;
     
     let cx = event.data[0];
@@ -11,28 +15,48 @@ function gravity(event, mass, fluid) {
 
     let dir = [0, 0];
     let force = [0,0];
+    let density = 0;
 
     let currBlock = chunks.getBlock(cx, cy);
 
     for (let x = -1; x < 2; x ++) {
         for (let y = -1; y < 2; y++) {
             let blok = chunks.getBlock(cx + x, cy + y);
+
             if (blok == -1) continue;
-            let massDiff = (mass / mainTiles.tiles[blok].attributes.mass) - (mainTiles.tiles[blok].attributes.mass / mass);
+
+            let mass2 = mainTiles.tiles[blok].attributes.mass;
+            let massDiff = (mass / mass2) - (mass2 / mass);
             let x2 = x / fluid;
             let dirDiff = (y - 1 + fluid) / (Math.sqrt(x2*x2 + y*y));
+
+            density += mass2;
+            if (density > saturation) break;
+
             if (y == 0 && x == 0) dirDiff = 0;
             if (isNaN(dirDiff)) dirDiff = 0;
+
             force[0] += massDiff * x2;
             force[1] += massDiff * dirDiff * y;
         }
+        if (density > saturation) break;
     }
+
+
     dir[0] = (Math.abs(force[0]) < .5) ? 0 : Math.sign(force[0]);
     dir[1] = (Math.abs(force[1]) < .5) ? 0 : Math.sign(force[1]);
 
+    if (density > saturation ) {
+        if ( chunks.getBlock(cx, cy + 1) == mainTiles.resolveID('Vanilla/Core','Air')) {
+            dir = [0,1];
+        } else {
+            dir = [0,0];
+        }
+    }
+
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
-    if (currBlock == offBlock) {
+    if (currBlock == offBlock && density <= saturation) {
         dir[0] = Math.sign(force[0]);
         offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
     }
@@ -48,9 +72,9 @@ function gravity(event, mass, fluid) {
     chunks.setBlock(cx + dir[0], cy + dir[1], currBlock);
 }
 
-Tile.prototype.gravity = function (mass, fluid) {
+Tile.prototype.gravity = function (mass, fluid, saturation) {
     this.interactions.push(function (event) {
-        gravity(event, mass, fluid)
+        gravity(event, mass, fluid, saturation)
     });
     this.attributes.mass = mass;
     return this;

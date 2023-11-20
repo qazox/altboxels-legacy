@@ -1,5 +1,12 @@
 /*
-    Code for cohesion. Allows water to stick to itself without spreading apart too much.
+    Code for cohesion. 
+    Allows water to stick to itself.
+
+    radius: How far out of blocks will contribute to sticking
+    isAll: 
+        If this is false or undefined, cohesion occurs (sticks to self)
+        If this is true, adhesion and cohesion ocucrs (sticks to non-air)
+
 */
 
 
