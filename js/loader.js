@@ -42,27 +42,8 @@ function loadMod(stuff) {
     }
 }
 
-
-/*
-loadMod([
-    {
-        'namespace': 'TestMod/CoolStuff',
-        'content': [
-            {
-                'color': 'rgba(69,69,69)',
-                'name': 'Test Item',
-                'params': [
-                    {
-                        'func': 'cohesion',
-                        'options': []
-                    },
-                    {
-                        'func': 'gravity',
-                        'options': [50000, 7]
-                    }
-                ]
-            }
-        ]
-    }
-])
-*/
+async function openMods(stuff) {
+    // TODO: don't use prompt
+    let url = prompt('Type in the URL to the JSON of the mod you want to load.');
+    loadMod(await (await fetch(url)).json())
+}
