@@ -6,7 +6,7 @@ function Canvas(width, height, upscale) {
     this.width = width;
     this.height = height;
     this.upscale = upscale;
-    this.radius = 2s;
+    this.radius = 2;
 
     this.x = 0;
     this.y = 0;
