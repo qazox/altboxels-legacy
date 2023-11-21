@@ -31,18 +31,25 @@ function Tile(color, id) {
     */
 }
 
-function TileManager(row) {
+function TileManager(row, row2) {
     this.tiles = [];
     this.row = row;
+    this.row2 = row2;
     this.sel = 0;
 }
 
 TileManager.prototype.loadSet = function (namespace, tiles) {
     let path = namespace.split('/');
-    
-    let elem = document.createElement('h1');
+
+    let elem = document.createElement('a');
     elem.textContent = namespace;
+    elem.href = `#${namespace}`
     this.row.appendChild(elem);
+
+    let elem2 = document.createElement('section');
+    elem2.id = namespace
+    this.row2.appendChild(elem2);
+
 
     for (let tile of tiles) {
         tile.namespace = namespace;
@@ -53,7 +60,7 @@ TileManager.prototype.loadSet = function (namespace, tiles) {
 
         elem = document.createElement('button');
         elem.textContent = tile.id;
-        this.row.appendChild(elem);
+        elem2.appendChild(elem);
 
         elem.addEventListener('click', () => {
             this.sel = tile.number;
@@ -76,6 +83,7 @@ TileManager.prototype.resolve = function (namespace, name) {
 }
 
 var mainTiles = new TileManager(
+    document.querySelector('.menu'),
     document.querySelector('.buttons')
 );
 

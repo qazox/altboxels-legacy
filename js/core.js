@@ -132,7 +132,6 @@ Canvas.prototype.click = function () {
 
 var canvas = new Canvas(160, 90, 4);
 var handler = new TickHandler(canvas);
-canvas.setBlock(52, 52, 1);
 
 (async function () {
     while (true) {

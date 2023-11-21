@@ -6,7 +6,7 @@
     saturation: Maximum mass for gravity reactions to occur
 */
 
-let air = mainTiles.resolveID('Vanilla/Core','Air');
+let air = mainTiles.resolveID('Vanilla/Air','Air');
 
 function gravity(event, mass, fluid, saturation) {
     if (event.type != 'tick') return;

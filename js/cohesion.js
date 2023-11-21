@@ -26,7 +26,7 @@ function cohesion(event, radius, isAll) {
         for (let y = -radius; y <= radius; y++) {
             let blok = chunks.getBlock(cx + x, cy + y);
             if (blok != currBlock && !isAll) continue;
-            if (blok == mainTiles.resolveID("Vanilla/Core","Air") && isAll) continue;
+            if (blok == mainTiles.resolveID("Vanilla/Air","Air") && isAll) continue;
             force[0] += x / (0.1+Math.sqrt(x*x + y*y));
             force[1] += y / (0.1+Math.sqrt(x*x + y*y));
         }
@@ -43,7 +43,7 @@ function cohesion(event, radius, isAll) {
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
-    if (currBlock == -1 || offBlock != mainTiles.resolveID('Vanilla/Core','Air') || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
+    if (currBlock == -1 || offBlock != mainTiles.resolveID('Vanilla/Air','Air') || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
     //chunks.noTick[cx*chunks.height + cy] = true;
     //chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;

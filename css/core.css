@@ -16,13 +16,19 @@ canvas {
     image-rendering: pixelated;
 }
 
-button {
+button, a {
     padding: 10px;
     border: none;
     margin: 3px;
+
+    display: none;
 
     background: black;
     color: white;
 
     font-family: monospace;
+}
+
+section:target button, a {
+    display: inline-block;
 }
