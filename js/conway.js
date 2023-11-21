@@ -21,6 +21,7 @@ function life(event, liveTile, deadTile) {
 
     for (let x = -1; x <= 1; x++) {
         for (let y = -1; y <= 1; y++) {
+            if (x == 0 && y == 0) continue;
             let blok = chunks.getBlock(cx + x, cy + y);
             neighbors += (blok == liveTile) ? 1 : 0;
         }
