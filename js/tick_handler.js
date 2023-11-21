@@ -5,9 +5,12 @@
 function TickHandler(canvas) {
     this.canvas = canvas;
     this.ticks = 0;
+    this.noTick = false;
 }
 
 TickHandler.prototype.tick = async function() {
+    if (this.noTick) return;
+
     let canvas = this.canvas;
 
     this.canvas.noTick = [];
@@ -25,9 +28,7 @@ TickHandler.prototype.tick = async function() {
         canvas.setBlock(change[0], change[1], change[2]);
     }
     canvas.queuedChanges = [];
-
-    this.canvas.render();
-
+    
     this.ticks++;
     this.ticks = this.ticks % 3600;
 }

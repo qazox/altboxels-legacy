@@ -139,6 +139,7 @@ var handler = new TickHandler(canvas);
     while (true) {
         if (canvas.clicked) canvas.click();
         await handler.tick();
+        this.canvas.render();
         await new Promise(resolve => setTimeout(resolve, 1000 / 70));
     }
 })();

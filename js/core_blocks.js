@@ -26,6 +26,8 @@ mainTiles.loadSet(
 
         new Tile('rgb(117,111,86)', 'Wet Sand').cohesion(2).gravity(2000, 1, 18100)
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Sand']),
+
+        new Tile('rgb(255,0,0)', 'Barrier').unGravity()
     ]
 )
 
@@ -38,6 +40,8 @@ mainTiles.loadSet(
             .combine(['Vanilla/Earth', 'Sand'], ['Vanilla/Earth', 'Wet Sand'], ['Vanilla/Air', 'Air']),
 
         new Tile('rgb(208,232,237)', 'Steam').gravity(1.09, 3, 9800),
+
+        new Tile('rgb(145,201,152)', 'Slime').cohesion(5, true).gravity(900, 2, 9800)
     ]
 )
 
@@ -66,22 +70,14 @@ mainTiles.loadSet(
 
 
 mainTiles.loadSet(
-    'Vanilla/Misc',
+    'Vanilla/Life',
     [
-        new Tile('rgb(255,0,0)', 'Barrier').unGravity(),
-        new Tile('rgb(145,201,152)', 'Slime').cohesion(5, true).gravity(900, 2, 9800)
-    ]
-);
+        new Tile('rgb(245,245,245)', 'Alive Conway Cell').life(
+            ['Vanilla/Life', 'Alive Conway Cell'],
+            ['Vanilla/Life', 'Dead Conway Cell']),
 
-mainTiles.loadSet(
-    'Vanilla/Conway\'s Game of Life',
-    [
-        new Tile('rgb(245,245,245)', 'Alive Cell').life(
-            ['Vanilla/Conway\'s Game of Life', 'Alive Cell'],
-            ['Vanilla/Conway\'s Game of Life', 'Dead Cell']),
-
-        new Tile('rgb(10,10,10)', 'Dead Cell').life(
-            ['Vanilla/Conway\'s Game of Life', 'Alive Cell'],
-            ['Vanilla/Conway\'s Game of Life', 'Dead Cell']),
+        new Tile('rgb(10,10,10)', 'Dead Conway Cell').life(
+            ['Vanilla/Life', 'Alive Conway Cell'],
+            ['Vanilla/Life', 'Dead Conway Cell']),
     ]
 );

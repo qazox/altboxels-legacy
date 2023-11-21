@@ -29,6 +29,6 @@ button, a {
     font-family: monospace;
 }
 
-section:target button, a {
+section:target button, .menu2 button, a {
     display: inline-block;
 }
