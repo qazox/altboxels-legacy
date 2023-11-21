@@ -55,10 +55,10 @@ mainTiles.loadSet(
 
         new Tile('rgb(86,81,39)', 'Wet Sponge').unGravity()
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Water', 'Steam'], ['Vanilla/Sponge', 'Sponge'])
-            .combine(['Vanilla/Sponge', 'Sponge'], ['Vanilla/Water', 'Wet Sponge'], ['Vanilla/Sponge', 'Sponge']),
+            .combine(['Vanilla/Sponge', 'Sponge'], ['Vanilla/Sponge', 'Wet Sponge'], ['Vanilla/Sponge', 'Sponge']),
 
         new Tile('rgb(255,255,0)', 'Infinite Sponge').unGravity()
-            .combine(['Vanilla/Sponge', 'Water'], ['Vanilla/Air', 'Air'], ['Vanilla/Sponge', 'Infinite Sponge']),
+            .combine(['Vanilla/Water', 'Water'], ['Vanilla/Air', 'Air'], ['Vanilla/Sponge', 'Infinite Sponge']),
     ]
 );
 
