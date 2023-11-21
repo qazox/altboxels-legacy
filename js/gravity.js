@@ -52,7 +52,7 @@ function gravity(event, mass, fluid, saturation) {
     dir[1] = (Math.abs(force[1]) < .5) ? 0 : Math.sign(force[1]);
 
     if (density > saturation ) {
-        if ( mainTiles.tiles[chunks.getBlock(cx, cy + 1)].density < mass) {
+        if (chunks.getBlock(cx, cy + 1).density < mass) {
             dir = [0,1];
         } else {
             dir = [0,0];
