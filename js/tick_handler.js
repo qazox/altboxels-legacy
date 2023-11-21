@@ -21,6 +21,11 @@ TickHandler.prototype.tick = async function() {
         new GameEvent('tick', mainTiles.tiles[this.canvas.blocks[i]], [x,y, this.ticks], this.canvas);
     }
 
+    for (let change of canvas.queuedChanges) {
+        canvas.setBlock(change[0], change[1], change[2]);
+    }
+    canvas.queuedChanges = [];
+
     this.canvas.render();
 
     this.ticks++;

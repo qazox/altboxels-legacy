@@ -1,8 +1,10 @@
 /*
-    Code for basic blocks that don't require 
-    any unique or fancy attributes. 
-    
-    Think dirt, stone, etc.
+    Code for most implemented blocks. 
+
+    This code isn't in JSON form for reading purposes.
+
+    If you want to add a modification, use the JSON format
+    documented in [js/loader.js].
 */
 
 mainTiles.loadSet(
@@ -62,10 +64,24 @@ mainTiles.loadSet(
     ]
 );
 
+
 mainTiles.loadSet(
     'Vanilla/Misc',
     [
         new Tile('rgb(255,0,0)', 'Barrier').unGravity(),
         new Tile('rgb(145,201,152)', 'Slime').cohesion(5, true).gravity(900, 2, 9800)
+    ]
+);
+
+mainTiles.loadSet(
+    'Vanilla/Conway\'s Game of Life',
+    [
+        new Tile('rgb(245,245,245)', 'Alive Cell').life(
+            ['Vanilla/Conway\'s Game of Life', 'Alive Cell'],
+            ['Vanilla/Conway\'s Game of Life', 'Dead Cell']),
+
+        new Tile('rgb(10,10,10)', 'Dead Cell').life(
+            ['Vanilla/Conway\'s Game of Life', 'Alive Cell'],
+            ['Vanilla/Conway\'s Game of Life', 'Dead Cell']),
     ]
 );

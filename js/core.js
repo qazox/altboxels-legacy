@@ -18,6 +18,8 @@ function Canvas(width, height, upscale) {
 
     this.sel = -1;
 
+    this.queuedChanges = [];
+
     let that = this;
 
     this.elem.addEventListener('mousedown', function (e) {
