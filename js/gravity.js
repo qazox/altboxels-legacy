@@ -48,12 +48,11 @@ function gravity(event, mass, fluid, saturation) {
         if (density > saturation) break;
     }
 
-
     dir[0] = (Math.abs(force[0]) < .5) ? 0 : Math.sign(force[0]);
     dir[1] = (Math.abs(force[1]) < .5) ? 0 : Math.sign(force[1]);
 
     if (density > saturation ) {
-        if ( chunks.getBlock(cx, cy + 1) == air) {
+        if ( mainTiles.tiles[chunks.getBlock(cx, cy + 1)].density < mass) {
             dir = [0,1];
         } else {
             dir = [0,0];

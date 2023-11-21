@@ -2,7 +2,6 @@ body {
     font-family: monospace;
     padding: 10px;
     margin: 0;
-    overflow: hidden;
     background: rgba(48,50,54);
     color: white;
     text-align: center;
@@ -11,7 +10,7 @@ body {
 canvas {
     margin: auto;
     display: block;
-    background: black;
+    background: rgb(181, 204, 253);
     border: dashed white 2px;
     image-rendering: pixelated;
 }
