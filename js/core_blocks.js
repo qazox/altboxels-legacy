@@ -38,7 +38,7 @@ mainTiles.loadSet(
 
         new Tile('rgb(255,0,0)', 'Barrier').unGravity(),
 
-        new Tile('rgb(20,20,20)', 'Charcoal').gravity(2.1 / 1000, 1, 9800)
+        new Tile('rgb(20,20,20)', 'Charcoal').gravity(1100, 1, 9800)
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Water', 'Steam'])
     ]
 )
