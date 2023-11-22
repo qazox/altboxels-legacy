@@ -21,9 +21,26 @@ function gravity(event, mass, fluid, saturation) {
 
     let currBlock = chunks.getBlock(cx, cy);
 
+    let allEq = true;
+
     for (let x = -1; x < 2; x ++) {
         for (let y = -1; y < 2; y++) {
             let blok = chunks.getBlock(cx + x, cy + y);
+
+            allEq = allEq && (blok == currBlock);
+
+            if (!allEq) break;
+        }
+        if (!allEq) break;
+    }
+
+    if (allEq) return;
+
+    for (let x = -1; x < 2; x ++) {
+        for (let y = -1; y < 2; y++) {
+            let blok = chunks.getBlock(cx + x, cy + y);
+
+            allEq = allEq && (blok == currBlock);
 
             if (blok == -1) continue;
 
@@ -68,7 +85,7 @@ function gravity(event, mass, fluid, saturation) {
 
     if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
-    if (mainTiles.tiles[offBlock].attributes.noGravity) return;
+    if (offBlock == undefined || mainTiles.tiles[offBlock].attributes.noGravity) return;
 
     chunks.noTick[cx*chunks.height + cy] = true;
     chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;

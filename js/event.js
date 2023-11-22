@@ -8,7 +8,7 @@ function GameEvent(type, target, data, canvas) {
     this.canvas = canvas;
     this.target = target;
 
-    for (let interaction in target.interactions) {
-        target.interactions[interaction](this);
+    for (let interaction of target.interactions) {
+        interaction(this);
     }
 }

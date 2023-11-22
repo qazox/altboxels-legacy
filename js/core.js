@@ -51,7 +51,7 @@ function Canvas(width, height, upscale) {
 }
 
 Canvas.prototype.getBlock = function (x, y) {
-    if (x < 0 || y < 0 || x >= this.width || y >= this.height || (this.blocks[x * this.height + y] == undefined)) return -1;
+    if (x < 0 || y < 0 || x >= this.width || y >= this.height) return -1;
     return this.blocks[x * this.height + y];
 }
 
@@ -88,21 +88,21 @@ Canvas.prototype.render = function () {
 
     /* TODO: clean up */
 
-    let x = (this.pageX - this.elem.getBoundingClientRect().x + this.x) - 0.5 - this.radius * this.upscale;
-    let y = (this.pageY - this.elem.getBoundingClientRect().y + this.y) - 0.5 -this.radius* this.upscale;
+    let x = (this.pageX - this.elem.getBoundingClientRect().x - scrollX + this.x) - 0.5 - this.radius * this.upscale;
+    let y = (this.pageY - this.elem.getBoundingClientRect().y - scrollY + this.y) - 0.5 - this.radius * this.upscale;
 
     this.ctx.strokeStyle = 'rgb(255,255,255)';
     this.ctx.lineWidth = 2;
-    this.ctx.strokeRect(x,y,this.radius * 2 * this.upscale+2,this.radius * 2 * this.upscale + 2);
+    this.ctx.strokeRect(x, y, this.radius * 2 * this.upscale + 2, this.radius * 2 * this.upscale + 2);
 }
 
 /* TODO: cleanup again */
 Canvas.prototype.click = function () {
-    let x = (this.pageX - this.elem.getBoundingClientRect().x + this.x) / this.upscale;
-    let y = (this.pageY - this.elem.getBoundingClientRect().y + this.y) / this.upscale;
+    let x = (this.pageX - this.elem.getBoundingClientRect().x - scrollX + this.x) / this.upscale;
+    let y = (this.pageY - this.elem.getBoundingClientRect().y - scrollY + this.y) / this.upscale;
 
-    let x2 = (this.firstX - this.elem.getBoundingClientRect().x + this.x) / this.upscale;
-    let y2 = (this.firstY - this.elem.getBoundingClientRect().y + this.y) / this.upscale;
+    let x2 = (this.firstX - this.elem.getBoundingClientRect().x - scrollX + this.x) / this.upscale;
+    let y2 = (this.firstY - this.elem.getBoundingClientRect().y - scrollY + this.y) / this.upscale;
 
     x = Math.floor(x);
     y = Math.floor(y);
