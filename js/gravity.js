@@ -51,11 +51,7 @@ function gravity(event, mass, fluid, saturation) {
     dir[1] = (Math.abs(force[1]) < .5) ? 0 : Math.sign(force[1]);
 
     if (density > saturation ) {
-        if (chunks.getBlock(cx, cy + 1).density < mass) {
-            dir = [0,1];
-        } else {
-            return;
-        }
+        return;
     }
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
@@ -65,8 +61,10 @@ function gravity(event, mass, fluid, saturation) {
         offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
     }
 
-    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
+    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || mainTiles.tiles[offBlock].attributes.saturation / 9 < mass || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
+
+    
     if (!canGravity[offBlock]) return;
 
     chunks.noTick[cx*chunks.height + cy] = true;
@@ -83,6 +81,7 @@ Tile.prototype.gravity = function (mass, fluid, saturation) {
         gravity(event, mass, fluid, saturation)
     });
     this.attributes.mass = mass;
+    this.attributes.saturation = saturation;
     return this;
 }
 

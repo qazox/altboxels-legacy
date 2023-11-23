@@ -15,7 +15,6 @@ TickHandler.prototype.tick = function () {
 
     this.canvas.noTick = [];
 
-
     for (let i = 0; i < canvas.width * canvas.height; i++) {
         let cx = Math.floor(i / canvas.height);
         let cy = i % canvas.height;
