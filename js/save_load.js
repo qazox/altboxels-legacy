@@ -5,7 +5,19 @@
 */
 
 function save() {
-    let json = [];
+    let jason = {
+        'pal': [],
+        'data': []
+    };
+
+    for (let item of mainTiles.tiles) {
+        jason.pal.push([
+            item.namespace,
+            item.id
+        ])
+    }
+
+    let json = jason.data;
 
     for (let i = 0; i < canvas.blocks.length; i += 256) {
         let arr = canvas.blocks.slice(i, i + 256);
@@ -35,12 +47,18 @@ function save() {
         };
     }
 
-    document.querySelector('#code').value = JSON.stringify(json);
+    document.querySelector('#code').value = JSON.stringify(jason);
 }
 
 function load() {
-    let json = JSON.parse(document.querySelector('#code').value);
+    let jason = JSON.parse(document.querySelector('#code').value);
+
+    let json = jason.data;
     
+    let mainPal = jason.pal.map(x => mainTiles.resolveID(x[0],x[1]));
+
+    console.log(mainPal);
+
     for (let i in json) {
         let data = json[i];
         let pal = data.pal;
@@ -51,18 +69,18 @@ function load() {
 
         if (pal.length < 2) {
             for (let i in otherArray) {
-                otherArray[i] = (pal[0]) & 0xFF;
+                otherArray[i] =  mainPal[(pal[0])];
             }
             
         } else if (pal.length < 17) {
             for (let i in dat) {
-                otherArray[i*2] = pal[((dat[i] - 'A'.charCodeAt()) & 0xF0) / 16];
-                otherArray[i*2+1] = pal[(dat[i] - 'A'.charCodeAt()) & 0xF];
+                otherArray[i*2] = mainPal[pal[((dat[i] - 'A'.charCodeAt()) & 0xF0) / 16]];
+                otherArray[i*2+1] =  mainPal[pal[(dat[i] - 'A'.charCodeAt()) & 0xF]];
             }
             
         } else {
             for (let i in dat) {
-                otherArray[i] = pal[(dat[i] - 'A'.charCodeAt()) & 0xFF];
+                otherArray[i] =  mainPal[pal[(dat[i] - 'A'.charCodeAt()) & 0xFF]];
             }
         }
 
