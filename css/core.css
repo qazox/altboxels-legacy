@@ -2,7 +2,7 @@ body {
     font-family: monospace;
     padding: 10px;
     margin: 0;
-    background: rgba(48,50,54);
+    background: rgb(21, 21, 22);
     color: white;
     text-align: center;
 }
@@ -16,13 +16,13 @@ canvas {
 }
 
 button, a {
-    padding: 10px;
+    padding: 5px;
     border: none;
-    margin: 3px;
+    margin: 6px 3px 0px 3px;
 
     display: none;
 
-    background: black;
+    background: rgb(44, 142, 255);
     color: white;
 
     font-family: monospace;

@@ -9,8 +9,7 @@
 
 */
 
-
-function cohesion(event, radius, isAll) {
+function cohesion(event, radius, isAll = 0) {
     if (event.type != 'tick') return;
     
     let cx = event.data[0];
@@ -22,18 +21,10 @@ function cohesion(event, radius, isAll) {
 
     let currBlock = chunks.getBlock(cx, cy);
 
-    for (let x = -radius; x <= radius; x ++) {
-        for (let y = -radius; y <= radius; y++) {
-            let blok = chunks.getBlock(cx + x, cy + y);
-            if (blok != currBlock && !isAll) continue;
-            if (blok == mainTiles.resolveID("Vanilla/Air","Air") && isAll) continue;
-            force[0] += x / (0.1+Math.sqrt(x*x + y*y));
-            force[1] += y / (0.1+Math.sqrt(x*x + y*y));
-        }
-    }
+    if (force[0] == 0 && force[1] == 0) return;
 
-    dir[0] = (Math.abs(force[0]) < radius*0.3) ? 0 : Math.sign(force[0]);
-    dir[1] = (Math.abs(force[1]) < radius*0.3) ? 0 : Math.sign(force[1]);
+    dir[0] = (Math.abs(force[0]) < radius*0.1) ? 0 : Math.sign(force[0]);
+    dir[1] = (Math.abs(force[1]) < radius*0.1) ? 0 : Math.sign(force[1]);
 
     if (Math.abs(force[0]) < Math.abs(force[1])) {
         force[0] = 0
@@ -43,13 +34,15 @@ function cohesion(event, radius, isAll) {
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
-    if (currBlock == -1 || offBlock != mainTiles.resolveID('Vanilla/Air','Air') || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
+    if (currBlock == -1 || offBlock != air || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
     //chunks.noTick[cx*chunks.height + cy] = true;
     //chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;
 
     chunks.setBlock(cx, cy, offBlock);
     chunks.setBlock(cx + dir[0], cy + dir[1], currBlock);
+
+    return true;
 }
 
 Tile.prototype.cohesion = function (radius, isAll) {

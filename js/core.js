@@ -27,8 +27,6 @@ function Canvas(width, height, upscale) {
     });
 
     this.elem.addEventListener('mousemove', function (e) {
-        that.firstX = (that.pageX == undefined) ? e.pageX : that.pageX;
-        that.firstY = (that.pageY == undefined) ? e.pageY : that.pageY;
         that.pageX = e.pageX;
         that.pageY = e.pageY;
     })
@@ -40,6 +38,9 @@ function Canvas(width, height, upscale) {
 
     this.elem.addEventListener('mouseup', function (e) {
         that.clicked = false;
+
+        that.firstX = this.pageX;
+        that.firstY = this.pageY;
     });
 
 
@@ -98,6 +99,12 @@ Canvas.prototype.render = function () {
 
 /* TODO: cleanup again */
 Canvas.prototype.click = function () {
+    if (this.firstX == undefined) {
+        this.firstX = this.pageX;
+        this.firstY = this.pageY;
+        return;
+    }
+
     let x = (this.pageX - this.elem.getBoundingClientRect().x - scrollX + this.x) / this.upscale;
     let y = (this.pageY - this.elem.getBoundingClientRect().y - scrollY + this.y) / this.upscale;
 
@@ -130,16 +137,21 @@ Canvas.prototype.click = function () {
 
     } while (x3 != x && y3 != y)
 
+    this.firstX = this.pageX;
+    this.firstY = this.pageY;
 }
 
-var canvas = new Canvas(160, 90, 4);
+var canvas = new Canvas(240, 135, 4);
 var handler = new TickHandler(canvas);
 
 (async function () {
     while (true) {
-        if (canvas.clicked) canvas.click();
-        await handler.tick();
-        this.canvas.render();
+        handler.tick();
         await new Promise(resolve => setTimeout(resolve, 1000 / 70));
     }
 })();
+
+setInterval(() => {
+    if (canvas.clicked) canvas.click();
+    this.canvas.render();
+}, 1000 / 60);

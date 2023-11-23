@@ -10,6 +10,10 @@
     sections of an array. 
 */
 
+var canGravity = [
+
+];
+
 function Tile(color, id) {
     this.color = color;
 
@@ -55,6 +59,8 @@ TileManager.prototype.loadSet = function (namespace, tiles) {
         tile.namespace = namespace;
         tile.number = this.tiles.length;
         this.tiles.push(tile);
+
+        canGravity[tile.number] = !tile.attributes.noGravity;
 
         if (path.indexOf('secret') != -1) continue;
 

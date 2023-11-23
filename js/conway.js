@@ -37,6 +37,8 @@ function life(event, liveTile, deadTile) {
         chunks.queuedChanges.push([cx, cy, liveTile])
     }
 
+    return true;
+
 }
 
 Tile.prototype.life = function (liveTile, deadTile) {

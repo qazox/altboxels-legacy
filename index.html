@@ -11,25 +11,21 @@
 <body>
     <h1>Altboxels</h1>
     <canvas id='main'></canvas>
+    <canvas id='alt' style='display: none;'></canvas>
+
 
     <div class='menu2'>
-        <h1>Tools</h1>
         <section>
             <button onclick="handler.noTick = !handler.noTick">Pause</button>
+            <a href='https://github.com/qazox/altboxels'>Source</a>
+            <button onclick="openMods()">Mods</button>
         </section>
     </div>
 
     <div class='menu'>
-        <h1>Categories</h1>
-        <a href='#Vanilla/Core'>Vanilla/Core</a>
     </div>
-    <button onclick="openMods()">Load Mod</button>
 
     <div class='buttons'>
-        <h1>Options</h1>
-        <section id='Vanilla/Core'>
-            <button onclick="openMods()">Load Mod</button>
-        </section>
     </div>
 
     <!-- Core code -->
@@ -51,6 +47,9 @@
 
     <!-- Mod loader -->
     <script src="js/loader.js"></script>
+
+    <!-- Save/load -->
+    <script src="js/save_load.js"></script>
 </body>
 
 </html>

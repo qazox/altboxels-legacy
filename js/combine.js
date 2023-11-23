@@ -6,11 +6,6 @@
 function combine(event, inBlock, outBlock, outBlock2) {
     if (event.type != 'tick') return;
 
-    inBlock = mainTiles.resolveID(inBlock[0],inBlock[1]);
-    outBlock = mainTiles.resolveID(outBlock[0],outBlock[1]);
-    outBlock2 = mainTiles.resolveID(outBlock2[0],outBlock2[1]);
-
-
     let cx = event.data[0];
     let cy = event.data[1];
     let chunks = event.canvas;
@@ -29,15 +24,28 @@ function combine(event, inBlock, outBlock, outBlock2) {
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
-    if (currBlock == -1 || offBlock == -1 || (dir[0] == 0 && dir[1] == 0) || chunks.noTick[(cx + dir[0]) * chunks.height + (cy + dir[1])]) return;
+    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx + dir[0]) * chunks.height + (cy + dir[1])]) return;
 
     chunks.setBlock(cx, cy, outBlock);
     chunks.setBlock(cx + dir[0], cy + dir[1], outBlock2);
+
+    return true;
 }
 
 Tile.prototype.combine = function (inBlock, outBlock2, outBlock) {
-    this.interactions.push(function (event) {
-        combine(event, inBlock, outBlock, outBlock2)
-    });
+    let that = this;
+
+    setTimeout(function() {
+
+        inBlock =  mainTiles.resolveID(inBlock[0],inBlock[1]);
+        outBlock = mainTiles.resolveID(outBlock[0],outBlock[1]);
+        outBlock2 = mainTiles.resolveID(outBlock2[0],outBlock2[1]);
+    
+        that.interactions.push(function (event) {
+    
+            combine(event, inBlock, outBlock, outBlock2)
+        });
+    })
+
     return this;
 }

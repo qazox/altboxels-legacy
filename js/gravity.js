@@ -21,27 +21,11 @@ function gravity(event, mass, fluid, saturation) {
 
     let currBlock = chunks.getBlock(cx, cy);
 
-    let allEq = true;
 
     for (let x = -1; x < 2; x ++) {
         for (let y = -1; y < 2; y++) {
             let blok = chunks.getBlock(cx + x, cy + y);
-
-            allEq = allEq && (blok == currBlock);
-
-            if (!allEq) break;
-        }
-        if (!allEq) break;
-    }
-
-    if (allEq) return;
-
-    for (let x = -1; x < 2; x ++) {
-        for (let y = -1; y < 2; y++) {
-            let blok = chunks.getBlock(cx + x, cy + y);
-
-            allEq = allEq && (blok == currBlock);
-
+            
             if (blok == -1) continue;
 
             let mass2 = mainTiles.tiles[blok].attributes.mass;
@@ -72,7 +56,7 @@ function gravity(event, mass, fluid, saturation) {
         if (chunks.getBlock(cx, cy + 1).density < mass) {
             dir = [0,1];
         } else {
-            dir = [0,0];
+            return;
         }
     }
 
@@ -85,13 +69,15 @@ function gravity(event, mass, fluid, saturation) {
 
     if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
-    if (offBlock == undefined || mainTiles.tiles[offBlock].attributes.noGravity) return;
+    if (!canGravity[offBlock]) return;
 
     chunks.noTick[cx*chunks.height + cy] = true;
     chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;
 
     chunks.setBlock(cx, cy, offBlock);
     chunks.setBlock(cx + dir[0], cy + dir[1], currBlock);
+
+    return true;
 }
 
 Tile.prototype.gravity = function (mass, fluid, saturation) {

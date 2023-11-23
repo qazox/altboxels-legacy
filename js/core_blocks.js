@@ -47,13 +47,13 @@ mainTiles.loadSet(
     'Vanilla/Water',
     [
 
-        new Tile('rgb(51, 153, 255)', 'Water').cohesion(2).cohesion(2, true).gravity(900, 2, 9800)
+        new Tile('rgb(51, 153, 255)', 'Water').cohesion(2,0.2).gravity(900, 2, 9800)
             .combine(['Vanilla/Earth', 'Earth'], ['Vanilla/Earth', 'Mud'], ['Vanilla/Air', 'Air'])
             .combine(['Vanilla/Earth', 'Sand'], ['Vanilla/Earth', 'Wet Sand'], ['Vanilla/Air', 'Air']),
 
         new Tile('rgb(208,232,237)', 'Steam').gravity(1.09, 3, 9800),
 
-        new Tile('rgb(145,201,152)', 'Slime').cohesion(5, true).gravity(900, 2, 9800)
+        new Tile('rgb(145,201,152)', 'Slime').cohesion(5, 1).gravity(900, 2, 9800)
     ]
 )
 

@@ -9,6 +9,6 @@ function GameEvent(type, target, data, canvas) {
     this.target = target;
 
     for (let interaction of target.interactions) {
-        interaction(this);
+        if (interaction(this)) return;
     }
 }
