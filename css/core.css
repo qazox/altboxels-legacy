@@ -15,7 +15,7 @@ canvas {
     image-rendering: pixelated;
 }
 
-button, a {
+button, a, textarea {
     padding: 5px;
     border: none;
     margin: 6px 3px 0px 3px;
@@ -28,6 +28,6 @@ button, a {
     font-family: monospace;
 }
 
-section:target button, .menu2 button, a {
+section:target button, .menu2 button, a, textarea {
     display: inline-block;
 }

@@ -13,12 +13,13 @@
     <canvas id='main'></canvas>
     <canvas id='alt' style='display: none;'></canvas>
 
-
     <div class='menu2'>
         <section>
             <button onclick="handler.noTick = !handler.noTick">Pause</button>
             <a href='https://github.com/qazox/altboxels'>Source</a>
             <button onclick="openMods()">Mods</button>
+            <button onclick="save()">Save</button>
+            <button onclick="load()">Load</button>
         </section>
     </div>
 
@@ -27,6 +28,10 @@
 
     <div class='buttons'>
     </div>
+
+    <textarea id='code'>
+        (save data here)
+    </textarea>
 
     <!-- Core code -->
     <script src="js/tile.js"></script>
