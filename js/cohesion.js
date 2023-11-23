@@ -21,6 +21,19 @@ function cohesion(event, radius, isAll = 0) {
 
     let currBlock = chunks.getBlock(cx, cy);
 
+    for (let x = -radius; x <= radius; x ++) {
+        for (let y = -radius; y <= radius; y++) {
+            let blok = chunks.getBlock(cx + x, cy + y);
+
+            let factor = ((blok == currBlock) * (1-isAll)) + ((blok != air) * isAll);
+
+            if (factor == 0) continue;
+
+            force[0] += x / (0.1+Math.sqrt(x*x + y*y)) * factor;
+            force[1] += y / (0.1+Math.sqrt(x*x + y*y)) * factor;
+        }
+    }
+
     if (force[0] == 0 && force[1] == 0) return;
 
     dir[0] = (Math.abs(force[0]) < radius*0.1) ? 0 : Math.sign(force[0]);
@@ -34,10 +47,7 @@ function cohesion(event, radius, isAll = 0) {
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
 
-    if (currBlock == -1 || offBlock != air || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
-
-    //chunks.noTick[cx*chunks.height + cy] = true;
-    //chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])] = true;
+    if (currBlock == -1 || offBlock == -1 || offBlock != air || currBlock == offBlock || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
     chunks.setBlock(cx, cy, offBlock);
     chunks.setBlock(cx + dir[0], cy + dir[1], currBlock);

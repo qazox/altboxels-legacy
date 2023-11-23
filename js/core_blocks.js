@@ -53,7 +53,7 @@ mainTiles.loadSet(
 
         new Tile('rgb(208,232,237)', 'Steam').gravity(1.09, 3, 9800),
 
-        new Tile('rgb(145,201,152)', 'Slime').cohesion(5, 1).gravity(900, 2, 9800)
+        new Tile('rgb(145,201,152)', 'Slime').cohesion(5,0.8).gravity(900, 2, 9800)
     ]
 )
 
@@ -95,3 +95,5 @@ mainTiles.loadSet(
             ['Vanilla/Life', 'Dead Conway Cell']),
     ]
 );
+
+let air = mainTiles.resolveID('Vanilla/Air','Air');
