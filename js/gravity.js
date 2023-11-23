@@ -61,7 +61,7 @@ function gravity(event, mass, fluid, saturation) {
         offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
     }
 
-    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || mainTiles.tiles[offBlock].attributes.saturation / 9 < mass || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
+    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock ||offBlock == undefined || mainTiles.tiles[offBlock].attributes.saturation / 9 < mass || chunks.noTick[(cx+dir[0])*chunks.height + (cy+dir[1])]) return;
 
 
     
