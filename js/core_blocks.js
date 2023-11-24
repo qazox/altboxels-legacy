@@ -65,7 +65,7 @@ mainTiles.loadSet(
         new Tile('rgb(187,158,110)', 'Packed Sand').gravity(11, 1.5, 103)
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Sandstone']),
 
-        new Tile('rgb(167,138,90)', 'Sandstone').gravity(12, 1.5, 113),
+        new Tile('rgb(167,138,90)', 'Sandstone').unGravity(),
 
         new Tile('rgb(56, 54, 52)', 'Basalt').unGravity(),
 
