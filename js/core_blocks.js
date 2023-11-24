@@ -92,6 +92,14 @@ mainTiles.loadSet(
         new Tile('rgb(97, 92, 97)', 'Mycelium').gravity(10, 1, 91)
             .combine(['Vanilla/Earth', 'Earth'],  ['Vanilla/Life', 'Mycelium'], ['Vanilla/Life', 'Mycelium'], true)
             .combine(['Vanilla/Earth', 'Earth'],  ['Vanilla/Earth', 'Soil'],  ['Vanilla/Life', 'Mycelium']),
+
+        new Tile('rgb(245,245,245)', 'Alive Conway Cell').life(
+            ['Vanilla/Life', 'Alive Conway Cell'],
+            ['Vanilla/Life', 'Dead Conway Cell']),
+
+        new Tile('rgb(10,10,10)', 'Dead Conway Cell').life(
+            ['Vanilla/Life', 'Alive Conway Cell'],
+            ['Vanilla/Life', 'Dead Conway Cell']),
     ]
 );
 
@@ -134,20 +142,6 @@ mainTiles.loadSet(
 
         new Tile('rgb(255,255,0)', 'Infinite Sponge').unGravity()
             .combine(['Vanilla/Water', 'Water'], ['Vanilla/Air', 'Air'], ['Vanilla/Sponge', 'Infinite Sponge']),
-    ]
-);
-
-
-mainTiles.loadSet(
-    'Vanilla/Life',
-    [
-        new Tile('rgb(245,245,245)', 'Alive Conway Cell').life(
-            ['Vanilla/Life', 'Alive Conway Cell'],
-            ['Vanilla/Life', 'Dead Conway Cell']),
-
-        new Tile('rgb(10,10,10)', 'Dead Conway Cell').life(
-            ['Vanilla/Life', 'Alive Conway Cell'],
-            ['Vanilla/Life', 'Dead Conway Cell']),
     ]
 );
 
