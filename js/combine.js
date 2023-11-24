@@ -3,7 +3,7 @@
     TOOD: clean this up too
 */
 
-function combine(event, inBlock, outBlock, outBlock2) {
+function combine(event, inBlock, outBlock, outBlock2, mustAir = false) {
     if (event.type != 'tick') return;
 
     let cx = event.data[0];
@@ -23,8 +23,10 @@ function combine(event, inBlock, outBlock, outBlock2) {
     }
 
     let offBlock = chunks.getBlock(cx + dir[0], cy + dir[1]);
+    let offBlock2 = chunks.getBlock(cx + dir[0], cy + dir[1] - 1);
 
-    if (currBlock == -1 || offBlock == -1 || currBlock == offBlock || chunks.noTick[(cx + dir[0]) * chunks.height + (cy + dir[1])]) return;
+    if (mustAir && offBlock2 != air) return;
+    if (currBlock == -1 || offBlock == -1 || offBlock != inBlock || currBlock == offBlock || chunks.noTick[(cx + dir[0]) * chunks.height + (cy + dir[1])]) return;
 
     chunks.setBlock(cx, cy, outBlock);
     chunks.setBlock(cx + dir[0], cy + dir[1], outBlock2);
@@ -32,7 +34,7 @@ function combine(event, inBlock, outBlock, outBlock2) {
     return true;
 }
 
-Tile.prototype.combine = function (inBlock, outBlock2, outBlock) {
+Tile.prototype.combine = function (inBlock, outBlock2, outBlock, mustAir = false) {
     let that = this;
 
     setTimeout(function() {
@@ -43,9 +45,9 @@ Tile.prototype.combine = function (inBlock, outBlock2, outBlock) {
     
         that.interactions.push(function (event) {
     
-            combine(event, inBlock, outBlock, outBlock2)
+            combine(event, inBlock, outBlock, outBlock2, mustAir)
         });
-    })
+    },200)
 
     return this;
 }
