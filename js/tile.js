@@ -21,6 +21,8 @@ function Tile(color, id) {
     this.number = -1;
     this.interactions = [];
     this.attributes = {};
+    this.attributes.temperature = 0;
+    this.attributes.conduct = 0.01;
 
     /*
         Interactions are used for dynamic functions that

@@ -25,6 +25,10 @@ TickHandler.prototype.tick = function () {
 
         let allEq = true;
 
+        if (this.ticks % 10 == 0) {
+            new GameEvent('temp', mainTiles.tiles[currBlock], [cx, cy, this.ticks], this.canvas);
+        }
+
         for (let x = -1; x < 2; x ++) {
             for (let y = -1; y < 2; y++) {
                 let blok = this.canvas.getBlock(cx + x, cy + y);

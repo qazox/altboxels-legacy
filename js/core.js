@@ -15,6 +15,7 @@ function Canvas(width, height, upscale) {
     this.ctx = this.elem.getContext('2d');
 
     this.blocks = new Uint16Array(width * height);
+    this.temp = new Array(width * height); // This will not be saved in the world data.
 
     this.sel = -1;
 
@@ -51,14 +52,14 @@ function Canvas(width, height, upscale) {
     this.resize();
 }
 
-Canvas.prototype.getBlock = function (x, y) {
+Canvas.prototype.getBlock = function (x, y, doTemp) {
     if (x < 0 || y < 0 || x >= this.width || y >= this.height) return -1;
-    return this.blocks[x * this.height + y];
+    return (doTemp ? this.temp : this.blocks)[x * this.height + y];
 }
 
-Canvas.prototype.setBlock = function (x, y, block) {
+Canvas.prototype.setBlock = function (x, y, block, doTemp) {
     if (this.getBlock(x, y) == -1) return;
-    this.blocks[x * this.height + y] = block
+    (doTemp ? this.temp : this.blocks)[x * this.height + y] = block
 }
 
 Canvas.prototype.resize = function () {
@@ -75,22 +76,45 @@ Canvas.prototype.render = function () {
         let y = i % this.height;
 
         let block = mainTiles.tiles[this.blocks[i]];
-        if (block.color === 'none') continue;
 
-        this.ctx.fillStyle = block.color;
+        if (block.color != 'none') {
 
-        this.ctx.fillRect(
-            x * this.upscale,
-            y * this.upscale,
-            this.upscale,
-            this.upscale
-        )
+            this.ctx.globalAlpha = 1;
+            this.ctx.fillStyle = block.color;
+    
+            this.ctx.fillRect(
+                x * this.upscale,
+                y * this.upscale,
+                this.upscale,
+                this.upscale
+            )
+        }
+
+        let temp = this.temp[i];
+        
+        if (Math.abs(temp) > 10) {
+                
+            this.ctx.fillStyle = (temp > 0) ? `rgb(255,0,0)` : `rgb(0,255,255)`;
+            this.ctx.globalAlpha = (1 / (1 + Math.exp(-Math.abs(temp)/1000)) - 0.5) * 0.8;
+
+            this.ctx.fillRect(
+                x * this.upscale,
+                y * this.upscale,
+                this.upscale,
+                this.upscale
+            )
+
+  
+        }
     }
 
     /* TODO: clean up */
 
     let x = (this.pageX - this.elem.getBoundingClientRect().x - scrollX + this.x) - 0.5 - this.radius * this.upscale;
     let y = (this.pageY - this.elem.getBoundingClientRect().y - scrollY + this.y) - 0.5 - this.radius * this.upscale;
+
+    
+    this.ctx.globalAlpha = 1;
 
     this.ctx.strokeStyle = 'rgb(255,255,255)';
     this.ctx.lineWidth = 2;
@@ -131,6 +155,7 @@ Canvas.prototype.click = function () {
 
                 if (blox == -1) continue;
 
+                this.setBlock(x4, y4, mainTiles.tiles[mainTiles.sel].attributes.temperature, true);
                 this.setBlock(x4, y4, mainTiles.sel);
             }
         }

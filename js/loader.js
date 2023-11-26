@@ -18,7 +18,9 @@ legalFuncs = [
     "cohesion",
     "combine",
     "unGravity",
-    "life"
+    "life",
+    "temperature",
+    "state"
 ]
 
 function loadTiles(stuff) {

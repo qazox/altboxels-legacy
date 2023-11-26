@@ -85,4 +85,8 @@ function load() {
 
         canvas.blocks.set(otherArray,Math.min(i*128,canvas.blocks.length - 128));
     }
+
+    for (let i in canvas.temp) {
+        canvas.temp[i] = mainTiles.tiles[canvas.blocks[i]].attributes.temperature;
+    }
 }
