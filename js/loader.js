@@ -20,7 +20,8 @@ legalFuncs = [
     "unGravity",
     "life",
     "temperature",
-    "state"
+    "state",
+    "duplicate"
 ]
 
 function loadTiles(stuff) {

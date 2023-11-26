@@ -178,10 +178,15 @@ mainTiles.loadSet(
 )
 
 mainTiles.loadSet(
-    'Vanilla/Electricity',
+    'Vanilla/Machines',
     [
         new Tile('rgb(237, 162, 71)', 'Copper')
-            .temperature(0,0.1)
+            .temperature(0,0.1),
+
+        new Tile('rgb(255,255,128)', 'Duplicator')
+            .unGravity()
+            .gravity(1000,0,0)
+            .duplicate()
     ]
 )
 
