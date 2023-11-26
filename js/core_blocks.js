@@ -24,7 +24,8 @@ mainTiles.loadSet(
 
         new Tile('rgb(180,156,229)', 'Hydrogen').gravity(0.8 / 1000, 4,  200) //H2
             .temperature(0,0.1)
-            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Air', 'Hydrogen Flame'], ['Vanilla/Air', 'Hydrogen Flame']),
+            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Air', 'Hydrogen Flame'], ['Vanilla/Air', 'Hydrogen Flame'])
+            .combine(['Vanilla/Air', 'Plasma'], ['Vanilla/Air', 'Helium'], ['Vanilla/Air', 'Vacuum']),
 
         new Tile('rgb(255,0,239)', 'Plasma').gravity(1.4 / 5000, 4,  200)
             .temperature(3010,2)
@@ -36,10 +37,6 @@ mainTiles.loadSet(
 
         new Tile('rgb(229,194,156)', 'Helium').gravity(0.7 / 1000, 4,  200)
             .temperature(0,0.001),
-
-        new Tile('rgba(0,0,0,0.6)', 'Carbon Monoxide').gravity(1.1 / 1000, 4,  200)
-            .temperature(0,0.02)
-            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Earth', 'Charcoal']),
 
         new Tile('rgba(0,0,0,0.2)', 'Carbon Dioxide').gravity(1.1 / 1000, 4,  200)
             .temperature(0,0.03)
@@ -74,9 +71,9 @@ mainTiles.loadSet(
             .combine(['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Mud'], ['Vanilla/Air', 'Air']),
             
         new Tile('rgb(252,224,133)', 'Sand').gravity(10, 1, 93)
-            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Sand']),
-
-        new Tile('rgb(128,128,128)', 'Gravel').gravity(10, 1, 932),
+            .state(['Vanilla/Earth', 'Glass'],1650,true)
+            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Sand'])
+            .combine(['Vanilla/Water', 'Acid'], ['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Clay']),
 
         new Tile('rgb(117,111,86)', 'Wet Sand').cohesion(2).gravity(12, 1.5, 112)
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Packed Sand']),
@@ -85,6 +82,12 @@ mainTiles.loadSet(
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Sandstone']),
 
         new Tile('rgb(167,138,90)', 'Sandstone').unGravity(),
+
+        new Tile('rgba(128,148,168,0.8)', 'Glass').gravity(10, 1, 93),
+
+        new Tile('rgb(128,128,128)', 'Gravel').gravity(10, 1, 932)
+            .combine(['Vanilla/Water', 'Acid'], ['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Sand'])
+            .combine(['Vanilla/Life', 'Mycelium'], ['Vanilla/Air', 'Air'], ['Vanilla/Earth', 'Earth']),
 
         new Tile('rgb(56, 54, 52)', 'Basalt')
             .unGravity()
@@ -96,11 +99,13 @@ mainTiles.loadSet(
 
         new Tile('rgb(211,108,108)', 'Brick').unGravity(),
 
-        new Tile('rgb(66, 64, 62)', 'Rock').gravity(10, 1,  89),
+        new Tile('rgb(66, 64, 62)', 'Rock').gravity(10, 1,  89)
+            .combine(['Vanilla/Water', 'Acid'], ['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Gravel']),
 
         new Tile('rgb(56, 54, 52)', 'Rock Barrier').unGravity()
             .state(['Vanilla/Earth', 'Rock'],800,true)
-            .combine(['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Rock'], ['Vanilla/Water', 'Water']),
+            .combine(['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Rock'], ['Vanilla/Water', 'Water'])
+            .combine(['Vanilla/Water', 'Acid'], ['Vanilla/Water', 'Water'], ['Vanilla/Earth', 'Rock']),
     ]
 )
 
@@ -139,6 +144,10 @@ mainTiles.loadSet(
             .combine(['Vanilla/Earth', 'Earth'], ['Vanilla/Earth', 'Mud'], ['Vanilla/Air', 'Air'])
             .combine(['Vanilla/Earth', 'Sand'], ['Vanilla/Earth', 'Wet Sand'], ['Vanilla/Air', 'Air']),
 
+        new Tile('rgb(45, 255, 15)', 'Acid').cohesion(2,0.3).gravity(1, 2, 11)
+            .temperature(-5,0.05,5)
+            .state(['Vanilla/Water', 'Steam'],100,true)
+            .state(['Vanilla/Water', 'Ice'],-23,false),
 
         new Tile('rgb(81, 200, 255)', 'Ice').unGravity()
             .temperature(-30,0.05,5)
