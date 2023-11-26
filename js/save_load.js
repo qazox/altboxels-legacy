@@ -90,3 +90,12 @@ function load() {
         canvas.temp[i] = mainTiles.tiles[canvas.blocks[i]].attributes.temperature;
     }
 }
+
+let loc = new URL(window.location).searchParams.get("embed");
+
+if (loc) {
+    (async function() {
+        document.querySelector('#code').value = await fetch(loc).then(x => x.text());
+        load();
+    })()
+}
