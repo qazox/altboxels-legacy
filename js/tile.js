@@ -24,6 +24,8 @@ function Tile(color, id) {
     this.attributes.temperature = 0;
     this.attributes.conduct = 0.01;
 
+    this.color = (color == 'none') ? 'none' : color.replace(/^[^\(]+\(/,'').replace(/\)$/,'').split(',').map(x => 1 * x)
+
     /*
         Interactions are used for dynamic functions that
         depend on world state, while attributes are used

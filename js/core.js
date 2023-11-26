@@ -63,54 +63,46 @@ Canvas.prototype.setBlock = function (x, y, block, doTemp) {
 }
 
 Canvas.prototype.resize = function () {
-    this.elem.width = this.width * this.upscale;
-    this.elem.height = this.height * this.upscale;
+    this.elem.style.width = this.width * this.upscale + 'px';
+    this.elem.style.height = this.height * this.upscale + 'px';
+
+    this.elem.width = this.width;
+    this.elem.height = this.height;
 
     this.render();
 }
 
 Canvas.prototype.render = function () {
     this.ctx.clearRect(0, 0, this.width * this.upscale, this.height * this.upscale);
+
+    let imgData = this.ctx.getImageData(0, 0, this.width, this.height);
+    let pixels = imgData.data;
+
     for (let i = 0; i < this.width * this.height; i++) {
         let x = Math.floor(i / this.height);
         let y = i % this.height;
 
+        let i2 = x + y*this.width;
+
         let block = mainTiles.tiles[this.blocks[i]];
 
         if (block.color != 'none') {
+            let temp = this.temp[i];
+            let val = (1 / (1 + Math.exp(-Math.abs(temp)/1000)) - 0.5) * 2;
+            val *= val;
 
-            this.ctx.globalAlpha = 1;
-            this.ctx.fillStyle = block.color;
-    
-            this.ctx.fillRect(
-                x * this.upscale,
-                y * this.upscale,
-                this.upscale,
-                this.upscale
-            )
+            pixels[i2*4] = block.color[0] + (255 - block.color[0]) * val;
+            pixels[i2*4+1] = block.color[1]+ (255 - block.color[1]) * val * val;
+            pixels[i2*4+2] = block.color[2] + (255 - block.color[2]) * val * val * val;
+            pixels[i2*4+3] = block.color[3] * 255 || 255;
+
         }
 
-        let temp = this.temp[i];
-        
-        if (Math.abs(temp) > 10) {
-                
-            let val = (1 / (1 + Math.exp(-Math.abs(temp)/300)) - 0.5);
-
-            this.ctx.fillStyle = (temp > 0) ? `rgb(255,${val * val * 255},${val * val * val * val * 255})` : `rgb(0,255,255)`;
-            this.ctx.globalAlpha = val * 0.8;
-
-            this.ctx.fillRect(
-                x * this.upscale,
-                y * this.upscale,
-                this.upscale,
-                this.upscale
-            )
-
-  
-        }
     }
 
     /* TODO: clean up */
+
+    this.ctx.putImageData(imgData,0,0,0,0,this.width,this.height)
 
     let x = (this.pageX - this.elem.getBoundingClientRect().x - scrollX + this.x) - 0.5 - this.radius * this.upscale;
     let y = (this.pageY - this.elem.getBoundingClientRect().y - scrollY + this.y) - 0.5 - this.radius * this.upscale;
@@ -120,7 +112,7 @@ Canvas.prototype.render = function () {
 
     this.ctx.strokeStyle = 'rgb(255,255,255)';
     this.ctx.lineWidth = 2;
-    this.ctx.strokeRect(x, y, this.radius * 2 * this.upscale + 2, this.radius * 2 * this.upscale + 2);
+    this.ctx.strokeRect(x / this.upscale, y / this.upscale, this.radius * 2 + 2, this.radius * 2  + 2);
 }
 
 /* TODO: cleanup again */
