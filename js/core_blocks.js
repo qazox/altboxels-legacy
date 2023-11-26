@@ -161,7 +161,7 @@ mainTiles.loadSet(
 mainTiles.loadSet(
     'Vanilla/Fire',
     [
-        new Tile('rgb(255, 102, 0)', 'Fire')
+        new Tile('rgb(255, 64, 0)', 'Fire')
             .temperature(1200,1)
             .state(['Vanilla/Air', 'Carbon Dioxide'],500,false)
             .state(['Vanilla/Air', 'Plasma'],3000,true)
@@ -170,7 +170,7 @@ mainTiles.loadSet(
             .combine(['Vanilla/Air', 'Vacuum'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Air', 'Vacuum'])
             .combine(['Vanilla/Air', 'Air'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Hot Air']),
         
-        new Tile('rgb(255, 90, 16)', 'Lava').cohesion(2,0.2).gravity(1, 2, 11)
+        new Tile('rgb(128, 32, 0)', 'Lava').cohesion(2,0.2).gravity(1, 2, 11)
             .temperature(1125,0.1)
             .state(['Vanilla/Earth', 'Basalt'],1000,false)
             .combine(['Vanilla/Water', 'Water'], ['Vanilla/Water', 'Steam'],  ['Vanilla/Earth', 'Basalt'])

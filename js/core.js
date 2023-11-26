@@ -88,13 +88,12 @@ Canvas.prototype.render = function () {
 
         if (block.color != 'none') {
             let temp = this.temp[i];
-            let val = (1 / (1 + Math.exp(-Math.abs(temp)/1000)) - 0.5) * 2;
-            val *= val;
+            let val = Math.pow((temp + 310)/310, 1);
 
-            pixels[i2*4] = block.color[0] + (255 - block.color[0]) * val;
-            pixels[i2*4+1] = block.color[1]+ (255 - block.color[1]) * val * val;
-            pixels[i2*4+2] = block.color[2] + (255 - block.color[2]) * val * val * val;
-            pixels[i2*4+3] = block.color[3] * 255 || 255;
+            pixels[i2*4] = block.color[0] * val;
+            pixels[i2*4+1] = block.color[1] * Math.pow(val,0.4);
+            pixels[i2*4+2] = block.color[2] * Math.pow(val,0.16);
+            pixels[i2*4+3] = block.color[3] * 255 - 100 + val * 100 || 255;
 
         }
 

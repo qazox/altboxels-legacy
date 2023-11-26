@@ -24,7 +24,7 @@ function Tile(color, id) {
     this.attributes.temperature = 0;
     this.attributes.conduct = 0.01;
 
-    this.color = (color == 'none') ? 'none' : color.replace(/^[^\(]+\(/,'').replace(/\)$/,'').split(',').map(x => 1 * x)
+    this.color = (color == 'none') ? [255,255,255,1/255] : color.replace(/^[^\(]+\(/,'').replace(/\)$/,'').split(',').map(x => 1 * x)
 
     /*
         Interactions are used for dynamic functions that
