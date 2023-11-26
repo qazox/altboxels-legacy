@@ -15,40 +15,39 @@ mainTiles.loadSet(
             .state(['Vanilla/Air', 'Hot Air'],50,true),
 
          new Tile('none', 'Hot Air').gravity(1.4 / 1100, 4, 100)
-            .temperature(50,0.02)
-            .state(['Vanilla/Air', 'Air'],50,false),
+            .temperature(100,0.02)
+            .state(['Vanilla/Air', 'Air'],50,false)
+            .state(['Vanilla/Air', 'Plasma'],3000,true),
 
         new Tile('rgb(0,0,0)', 'Vacuum').gravity(0.01 / 1000 / 1000, 4, Infinity)
             .temperature(0,0),
 
-        new Tile('rgb(180,156,229)', 'Hydrogen').gravity(0.8 / 1000, 4,  200)
+        new Tile('rgb(180,156,229)', 'Hydrogen').gravity(0.8 / 1000, 4,  200) //H2
             .temperature(0,0.1)
-            .state(['Vanilla/Air', 'Hydrogen Flame'],50,true),
+            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Air', 'Hydrogen Flame'], ['Vanilla/Air', 'Hydrogen Flame']),
 
         new Tile('rgb(255,0,239)', 'Plasma').gravity(1.4 / 5000, 4,  200)
-            .temperature(5000,2)
+            .temperature(3010,2)
             .state(['Vanilla/Air', 'Hydrogen'],3000,false),
 
         new Tile('rgb(200,186,249)', 'Hydrogen Flame').gravity(0.8 / 1000, 4,  200)
             .temperature(50,0.2)
-            .combine(['Vanilla/Air', 'Hydrogen'], ['Vanilla/Water', 'Steam'], ['Vanilla/Water', 'Steam'])
-            .combine(['Vanilla/Air', 'Hydrogen Flame'], ['Vanilla/Air', 'Hydrogen'], ['Vanilla/Air', 'Air']),
+            .combine(['Vanilla/Air', 'Hydrogen'], ['Vanilla/Water', 'Steam'], ['Vanilla/Air', 'Hydrogen']),
 
         new Tile('rgb(229,194,156)', 'Helium').gravity(0.7 / 1000, 4,  200)
             .temperature(0,0.001),
 
         new Tile('rgba(0,0,0,0.6)', 'Carbon Monoxide').gravity(1.1 / 1000, 4,  200)
             .temperature(0,0.02)
-            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Air', 'Vacuum']),
+            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Earth', 'Charcoal']),
 
         new Tile('rgba(0,0,0,0.2)', 'Carbon Dioxide').gravity(1.1 / 1000, 4,  200)
-            .temperature(0,0.03),
+            .temperature(0,0.03)
+            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Fire', 'Fire']),
 
         new Tile('rgba(0,0,0,0.4)', 'Methane').gravity(1.0 / 1000, 4, 200)
             .temperature(0,0.04)
-            .state(['Vanilla/Fire', 'Fire'],1000,true)
-            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Fire', 'Fire'])
-            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Air', 'Carbon Monoxide'], ['Vanilla/Water', 'Steam'])
+            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Methane'], ['Vanilla/Fire', 'Fire'])
 
     ]
 );
@@ -65,7 +64,9 @@ mainTiles.loadSet(
         
         new Tile('rgb(20,20,20)', 'Charcoal').gravity(11, 1, 100)
             .temperature(0,0.5)
-            .state(['Vanilla/Fire', 'Fire'],800,true),
+            .combine(['Vanilla/Air', 'Hot Air'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Fire', 'Fire'])
+            .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Air', 'Vacuum'])
+            .combine(['Vanilla/Water', 'Steam'], ['Vanilla/Air', 'Methane'], ['Vanilla/Air', 'Air']),
 
         new Tile('rgb(53,46,32)', 'Mud').cohesion(2).gravity(12, 1.5, 113),
         
@@ -132,14 +133,26 @@ mainTiles.loadSet(
     [
 
         new Tile('rgb(51, 153, 255)', 'Water').cohesion(2,0.2).gravity(1, 2, 11)
-            .temperature(-10,0.05,5)
+            .temperature(-5,0.05,5)
             .state(['Vanilla/Water', 'Steam'],100,true)
+            .state(['Vanilla/Water', 'Ice'],-23,false)
             .combine(['Vanilla/Earth', 'Earth'], ['Vanilla/Earth', 'Mud'], ['Vanilla/Air', 'Air'])
             .combine(['Vanilla/Earth', 'Sand'], ['Vanilla/Earth', 'Wet Sand'], ['Vanilla/Air', 'Air']),
 
+
+        new Tile('rgb(81, 200, 255)', 'Ice').unGravity()
+            .temperature(-30,0.05,5)
+            .state(['Vanilla/Water', 'Water'],-23,true),
+
+        new Tile('rgb(255, 255, 255)', 'Snow')
+            .temperature(-30,0.05,5)
+            .state(['Vanilla/Water', 'Water'],-23,true)
+            .gravity(10, 1, 93),
+
         new Tile('rgb(208,232,237)', 'Steam').gravity(1.2 / 1000, 3, 11)
-            .temperature(77,0.1,0.5)
-            .state(['Vanilla/Water', 'Water'],100,false),
+            .temperature(80,0.1,0.5)
+            .state(['Vanilla/Water', 'Water'],77,false)
+            .state(['Vanilla/Water', 'Snow'],-23,false),
 
         new Tile('rgb(145,201,152)', 'Slime').cohesion(5,0.8).gravity(1.5, 2, 16)
     ]
@@ -154,7 +167,7 @@ mainTiles.loadSet(
             .state(['Vanilla/Air', 'Plasma'],3000,true)
             .gravity(1.4 / 1000, 4, 200)
             .combine(['Vanilla/Water', 'Water'], ['Vanilla/Water', 'Steam'], ['Vanilla/Air', 'Carbon Dioxide'])
-            .combine(['Vanilla/Air', 'Vacuum'], ['Vanilla/Water', 'Steam'], ['Vanilla/Air', 'Methane'])
+            .combine(['Vanilla/Air', 'Vacuum'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Air', 'Vacuum'])
             .combine(['Vanilla/Air', 'Air'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Hot Air']),
         
         new Tile('rgb(255, 90, 16)', 'Lava').cohesion(2,0.2).gravity(1, 2, 11)

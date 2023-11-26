@@ -95,7 +95,7 @@ Canvas.prototype.render = function () {
         if (Math.abs(temp) > 10) {
                 
             this.ctx.fillStyle = (temp > 0) ? `rgb(255,0,0)` : `rgb(0,255,255)`;
-            this.ctx.globalAlpha = (1 / (1 + Math.exp(-Math.abs(temp)/1000)) - 0.5) * 0.8;
+            this.ctx.globalAlpha = (1 / (1 + Math.exp(-Math.abs(temp)/300)) - 0.5) * 0.8;
 
             this.ctx.fillRect(
                 x * this.upscale,
