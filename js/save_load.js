@@ -91,7 +91,11 @@ function load() {
     }
 }
 
-let loc = new URL(window.location).searchParams.get("embed");
+let loc2 = new URL(window.location).searchParams;
+let loc = loc2.get("embed");
+if (loc2.get('oops') == 'true') {
+    alert('Oh no!');
+}
 
 if (loc) {
     (async function() {

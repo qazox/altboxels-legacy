@@ -86,16 +86,28 @@ Canvas.prototype.render = function () {
 
         let block = mainTiles.tiles[this.blocks[i]];
 
-        if (block.color != 'none') {
-            let temp = this.temp[i];
+        let temp = this.temp[i];
+
+
+        if (temp > 3e35) {
+            window.location.href = '?oops=true';
+        }
+
+        if (block.color != 'random') {
+
             let val = Math.pow((temp + 310)/310, 1);
 
-            pixels[i2*4] = block.color[0] * val;
-            pixels[i2*4+1] = block.color[1] * Math.pow(val,0.4);
-            pixels[i2*4+2] = block.color[2] * Math.pow(val,0.16);
+            pixels[i2*4] = (block.color[0] - temp / 1e28) * val ;
+            pixels[i2*4+1] = (block.color[1]- temp / 1e28) * Math.pow(val,0.4);
+            pixels[i2*4+2] = (block.color[2]- temp / 1e28) * Math.pow(val,0.16);
             pixels[i2*4+3] = block.color[3] * 255 - 100 + val * 100 || 255;
-
+        } else {
+            pixels[i2*4] = ((handler.ticks*69 ) % (Math.log(temp)*0.6969)) * 255 / (Math.log(temp)*0.6969);
+            pixels[i2*4+1] = ((handler.ticks*69)  % (Math.log(temp)*0.420420)) * 255 /(Math.log(temp)*0.420420);
+            pixels[i2*4+2] = ((handler.ticks*69)  % (Math.log(temp)*0.13371337)) * 255 /  (Math.log(temp)*0.13371337);
+            pixels[i2*4+3] = 255;
         }
+
 
     }
 

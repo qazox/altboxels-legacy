@@ -29,7 +29,11 @@ mainTiles.loadSet(
 
         new Tile('rgb(255,0,239)', 'Plasma').gravity(1.4 / 5000, 4,  200)
             .temperature(3010,2)
-            .state(['Vanilla/Air', 'Hydrogen'],3000,false),
+            .state(['Vanilla/Air', 'Hydrogen'],3000,false)
+            .state(['Vanilla/Air', '???'],1e30,true),
+
+        new Tile('random', '???').gravity(1e100, 4, 1e105)
+            .temperature(1e31,2),
 
         new Tile('rgb(200,186,249)', 'Hydrogen Flame').gravity(0.8 / 1000, 4,  200)
             .temperature(50,0.2)
