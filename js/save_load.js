@@ -7,7 +7,9 @@
 function save() {
     let jason = {
         'pal': [],
-        'data': []
+        'data': [],
+        'width': canvas.width,
+        'height': canvas.height
     };
 
     for (let item of mainTiles.tiles) {
@@ -54,6 +56,10 @@ function load() {
     let jason = JSON.parse(document.querySelector('#code').value);
 
     let json = jason.data;
+
+    canvas.width = jason.width;
+    canvas.height = jason.height;
+    canvas.resize();
     
     let mainPal = jason.pal.map(x => mainTiles.resolveID(x[0],x[1]));
 
