@@ -25,7 +25,7 @@ function Tile(color, id) {
     this.attributes.conduct = 0.01;
 
     this.color = (color == 'none') ? [181,204,253,1/255] : color.replace(/^[^\(]+\(/,'').replace(/\)$/,'').split(',').map(x => 1 * x)
-    if (color == 'random') this.color = 'random';
+    if (color == 'random') this.color = [-1,-1,-1]; // ugly and hard-coded, but somehow faster?
 
     /*
         Interactions are used for dynamic functions that

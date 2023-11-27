@@ -100,7 +100,7 @@ Canvas.prototype.render = function () {
         
                 let temp = that.temp[i];
         
-                if (block.color != 'random') {
+                if (block.color[0] != -1) {
         
                     let val = Math.pow((temp + 310)/310, 1);
         
