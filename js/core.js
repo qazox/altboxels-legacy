@@ -85,37 +85,37 @@ Canvas.prototype.render = function () {
     let imgData = this.ctx.getImageData(0, 0, this.width, this.height);
     let pixels = imgData.data;
 
-    for (let i = 0; i < this.width * this.height; i++) {
-        let x = Math.floor(i / this.height);
-        let y = i % this.height;
-
-        let i2 = x + y*this.width;
-
-        let block = mainTiles.tiles[this.blocks[i]];
-
-        let temp = this.temp[i];
-
-
-        if (temp > 3e35) {
-            window.location.href = '?oops=true';
-        }
-
-        if (block.color != 'random') {
-
-            let val = Math.pow((temp + 310)/310, 1);
-
-            pixels[i2*4] = (block.color[0] - temp / 1e28) * val ;
-            pixels[i2*4+1] = (block.color[1]- temp / 1e28) * Math.pow(val,0.4);
-            pixels[i2*4+2] = (block.color[2]- temp / 1e28) * Math.pow(val,0.16);
-            pixels[i2*4+3] = block.color[3] * 255 - 100 + val * 100 || 255;
-        } else {
-            pixels[i2*4] = ((handler.ticks*69 ) % (Math.log(temp)*0.6969)) * 255 / (Math.log(temp)*0.6969);
-            pixels[i2*4+1] = ((handler.ticks*69)  % (Math.log(temp)*0.420420)) * 255 /(Math.log(temp)*0.420420);
-            pixels[i2*4+2] = ((handler.ticks*69)  % (Math.log(temp)*0.13371337)) * 255 /  (Math.log(temp)*0.13371337);
-            pixels[i2*4+3] = 255;
-        }
-
-
+    let int = Math.ceil(this.width * this.height/8);
+    for (let j = 0; j < 8; j++) {
+        let that = this;
+        (async function() {
+            for (let i = j*int; i < (j+1)*int; i++) {
+                if (i > that.width * that.height) break;
+                let x = Math.floor(i / that.height);
+                let y = i % that.height;
+        
+                let i2 = x + y*that.width;
+        
+                let block = mainTiles.tiles[that.blocks[i]];
+        
+                let temp = that.temp[i];
+        
+                if (block.color != 'random') {
+        
+                    let val = Math.pow((temp + 310)/310, 1);
+        
+                    pixels[i2*4] = (block.color[0] - temp / 1e28) * val ;
+                    pixels[i2*4+1] = (block.color[1]- temp / 1e28) * Math.pow(val,0.4);
+                    pixels[i2*4+2] = (block.color[2]- temp / 1e28) * Math.pow(val,0.16);
+                    pixels[i2*4+3] = block.color[3] * 255 - 100 + val * 100 || 255;
+                } else {
+                    pixels[i2*4] = ((handler.ticks*69 ) % (Math.log(temp)*0.6969)) * 255 / (Math.log(temp)*0.6969);
+                    pixels[i2*4+1] = ((handler.ticks*69)  % (Math.log(temp)*0.420420)) * 255 /(Math.log(temp)*0.420420);
+                    pixels[i2*4+2] = ((handler.ticks*69)  % (Math.log(temp)*0.13371337)) * 255 /  (Math.log(temp)*0.13371337);
+                    pixels[i2*4+3] = 255;
+                }
+            }
+        })()
     }
 
     /* TODO: clean up */
