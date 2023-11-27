@@ -124,6 +124,21 @@ Canvas.prototype.render = function () {
     this.ctx.strokeStyle = 'rgb(255,255,255)';
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(x / this.upscale, y / this.upscale, this.radius * 2 + 2, this.radius * 2  + 2);
+
+    let theX = Math.floor(x/this.upscale  + this.radius + 1);
+    let theY = Math.floor(y/this.upscale   + this.radius + 1);
+
+
+
+    let blok = mainTiles.tiles[this.getBlock(theX, theY)];
+    let temp = this.getBlock(theX,theY, true);
+
+    if (blok) {
+        document.querySelector('.info').textContent = `${blok.namespace}; ${blok.id}; ${Math.round(temp+23)}deg Celsius`
+    } else {
+        document.querySelector('.info').textContent = `Unknown`
+    }
+  
 }
 
 /* TODO: cleanup again */
