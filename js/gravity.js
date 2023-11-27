@@ -74,9 +74,12 @@ function gravity(event, mass, fluid, saturation) {
     chunks.setBlock(cx + dir[0], cy + dir[1], currBlock);
 
     let t = chunks.getBlock(cx, cy,true);
-
-    chunks.setBlock(cx, cy, chunks.getBlock(cx + dir[0], cy + dir[1],true), true);
-    chunks.setBlock(cx + dir[0], cy + dir[1], t, true);
+    let t2 = chunks.getBlock(cx + dir[0], cy + dir[1],true);
+    
+    if (t != undefined && t2 != undefined) {
+        chunks.setBlock(cx, cy,t2, true);
+        chunks.setBlock(cx + dir[0], cy + dir[1], t, true);
+    }
 
     return true;
 }

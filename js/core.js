@@ -17,6 +17,10 @@ function Canvas(width, height, upscale) {
     this.blocks = new Uint16Array(width * height);
     this.temp = new Array(width * height); // This will not be saved in the world data.
 
+    for (let i = 0; i < width * height; i++) {
+        this.temp[i] = 0;
+    }
+
     this.sel = -1;
 
     this.queuedChanges = [];
@@ -53,7 +57,10 @@ function Canvas(width, height, upscale) {
 }
 
 Canvas.prototype.getBlock = function (x, y, doTemp) {
-    if (x < 0 || y < 0 || x >= this.width || y >= this.height) return -1;
+    if (x < 0 || y < 0 || x >= this.width || y >= this.height) {
+        if (doTemp) return undefined;
+        return -1;
+    }
     return (doTemp ? this.temp : this.blocks)[x * this.height + y];
 }
 

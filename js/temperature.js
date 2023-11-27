@@ -17,15 +17,18 @@ function temperature(event, conduct, transfer = 0) {
     for (let x = -1; x < 2; x ++) {
         for (let y = -1; y < 2; y++) {
             let blok = chunks.getBlock(cx + x, cy + y);
-            let temp = chunks.getBlock(cx, cy, true) || 0
-            let temp2 = chunks.getBlock(cx + x, cy + y, true) || 0
+            let temp = chunks.getBlock(cx, cy, true);
+            let temp2 = chunks.getBlock(cx + x, cy + y, true);
+
+            if (temp2 == undefined || temp == undefined || (x == 0 && y == 0)) continue;
 
             let conduct2 = (blok != -1) ? (mainTiles.tiles[blok].attributes.conduct || 0) : 0;
 
             let conductSum = Math.min(conduct * conduct2 * 10, 0.5);
+            let s = conductSum*(temp2 - temp + transfer);
 
-            chunks.setBlock(cx, cy, conductSum*(temp2 - temp + transfer) + temp, true);
-            chunks.setBlock(cx+x, cy+y, conductSum*(temp - temp2 - transfer) + temp2, true);
+            chunks.setBlock(cx, cy, s + temp, true);
+            chunks.setBlock(cx+x, cy+y, temp2 - s, true);
         }
     }
 }
