@@ -20,15 +20,21 @@ function temperature(event, conduct, transfer = 0) {
             let temp = chunks.getBlock(cx, cy, true);
             let temp2 = chunks.getBlock(cx + x, cy + y, true);
 
-            if (temp2 == undefined || temp == undefined || (x == 0 && y == 0)) continue;
+            if (temp2 == undefined || temp == undefined || (x == 0 && y == 0)) {
+                if (temp != undefined) chunks.setBlock(cx, cy, Math.max(temp,-296.15), true);
+                continue;
+            };
 
             let conduct2 = (blok != -1) ? (mainTiles.tiles[blok].attributes.conduct || 0) : 0;
 
             let conductSum = Math.min(conduct * conduct2 * 10, 0.5);
             let s = conductSum*(temp2 - temp + transfer);
+            
+            s += temp * -0.01;
+            if (temp < -296.15 && temp2 > -296.15) s = temp2 - temp;
 
-            chunks.setBlock(cx, cy, s + temp, true);
-            chunks.setBlock(cx+x, cy+y, temp2 - s, true);
+            chunks.setBlock(cx, cy, Math.max(s + temp,-296.15), true);
+            chunks.setBlock(cx+x, cy+y, Math.max(temp2 - s,-296.15), true);
         }
     }
 }

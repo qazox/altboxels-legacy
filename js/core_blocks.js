@@ -181,7 +181,8 @@ mainTiles.loadSet(
             .gravity(1.4 / 1000, 4, 200)
             .combine(['Vanilla/Water', 'Water'], ['Vanilla/Water', 'Steam'], ['Vanilla/Air', 'Carbon Dioxide'])
             .combine(['Vanilla/Air', 'Vacuum'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Air', 'Vacuum'])
-            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Hot Air']),
+            .combine(['Vanilla/Air', 'Air'], ['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Hot Air'])
+            .combine(['Vanilla/Air', 'Carbon Dioxide'],['Vanilla/Air', 'Carbon Dioxide'],['Vanilla/Air', 'Carbon Dioxide'],),
         
         new Tile('rgb(128, 32, 0)', 'Lava').cohesion(2,0.2).gravity(1, 2, 11)
             .temperature(1125,0.1)
