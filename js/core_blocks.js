@@ -20,7 +20,7 @@ mainTiles.loadSet(
             .state(['Vanilla/Air', 'Plasma'],3000,true),
 
         new Tile('rgb(0,0,0)', 'Vacuum').gravity(0.01 / 1000 / 1000, 4, Infinity)
-            .temperature(0,0),
+            .temperature(-269.15,0),
 
         new Tile('rgb(180,156,229)', 'Hydrogen').gravity(0.8 / 1000, 4,  200) //H2
             .temperature(0,0.1)
@@ -42,11 +42,11 @@ mainTiles.loadSet(
         new Tile('rgb(229,194,156)', 'Helium').gravity(0.7 / 1000, 4,  200)
             .temperature(0,0.001),
 
-        new Tile('rgba(0,0,0,0.2)', 'Carbon Dioxide').gravity(1.1 / 1000, 4,  200)
+        new Tile('rgba(0,0,0,0.2)', 'Carbon Dioxide').gravity(1.3 / 1000, 4,  200)
             .temperature(0,0.03)
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Carbon Dioxide'], ['Vanilla/Fire', 'Fire']),
 
-        new Tile('rgba(0,0,0,0.4)', 'Methane').gravity(1.0 / 1000, 4, 200)
+        new Tile('rgba(0,0,0,0.4)', 'Methane').gravity(1.2 / 1000, 4, 200)
             .temperature(0,0.04)
             .combine(['Vanilla/Fire', 'Fire'], ['Vanilla/Air', 'Methane'], ['Vanilla/Fire', 'Fire'])
 
@@ -59,7 +59,7 @@ mainTiles.loadSet(
     [
         new Tile('rgb(153, 102, 51)', 'Earth').gravity(10, 1, 91),
         
-        new Tile('rgb(143, 92, 41)', 'Soil').gravity(10, 1, 91),
+        new Tile('rgb(143, 92, 41)', 'Soil').gravity(10, 1, 93),
 
         new Tile('rgb(255,0,0)', 'Barrier').unGravity(),
         
@@ -141,14 +141,14 @@ mainTiles.loadSet(
     'Vanilla/Water',
     [
 
-        new Tile('rgb(51, 153, 255)', 'Water').cohesion(2,0.2).gravity(1, 2, 11)
+        new Tile('rgb(51, 153, 255)', 'Water').cohesion(2,0.2).gravity(1, 2, 110)
             .temperature(-5,0.05,5)
             .state(['Vanilla/Water', 'Steam'],100,true)
             .state(['Vanilla/Water', 'Ice'],-23,false)
             .combine(['Vanilla/Earth', 'Earth'], ['Vanilla/Earth', 'Mud'], ['Vanilla/Air', 'Air'])
             .combine(['Vanilla/Earth', 'Sand'], ['Vanilla/Earth', 'Wet Sand'], ['Vanilla/Air', 'Air']),
 
-        new Tile('rgb(45, 255, 15)', 'Acid').cohesion(2,0.3).gravity(1, 2, 11)
+        new Tile('rgb(45, 255, 15)', 'Acid').cohesion(2,0.3).gravity(1, 2, 110)
             .temperature(-5,0.05,5)
             .state(['Vanilla/Water', 'Steam'],100,true)
             .state(['Vanilla/Water', 'Ice'],-23,false),
