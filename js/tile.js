@@ -77,8 +77,8 @@ TileManager.prototype.loadSet = function (namespace, tiles) {
 
         elem.addEventListener('click', () => {
             this.sel = tile.number;
-            if (used[this.sel]) return;
-            used[this.sel] = true;
+            if (this.used[this.sel]) return;
+            this.used[this.sel] = true;
             dataLayer.push({'event': 'unlock'});
         })
     }
