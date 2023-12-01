@@ -24,8 +24,6 @@ function Tile(color, id) {
     this.attributes.temperature = 0;
     this.attributes.conduct = 0.01;
 
-    this.used = {};
-
     this.color = (color == 'none') ? [181,204,253,1/255] : color.replace(/^[^\(]+\(/,'').replace(/\)$/,'').split(',').map(x => 1 * x)
     if (color == 'random') this.color = [-1,-1,-1]; // ugly and hard-coded, but somehow faster?
 
@@ -47,6 +45,9 @@ function TileManager(row, row2) {
     this.row = row;
     this.row2 = row2;
     this.sel = 0;
+    
+    this.used = {};
+
 }
 
 TileManager.prototype.loadSet = function (namespace, tiles) {
