@@ -11,8 +11,15 @@ canvas {
     margin: auto;
     display: block;
     background: rgb(181, 204, 253);
-    border: dashed white 2px;
     image-rendering: pixelated;
+}
+
+#main2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
 }
 
 button, a, textarea {

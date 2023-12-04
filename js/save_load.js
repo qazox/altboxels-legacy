@@ -97,15 +97,17 @@ function load() {
     }
 }
 
-let loc2 = new URL(window.location).searchParams;
-let loc = loc2.get("embed");
-if (loc2.get('oops') == 'true') {
+var loc3 = new URL(window.location).searchParams;
+let loc = loc3.get("embed");
+if (loc3.get('oops') == 'true') {
     alert('Oh no!');
 }
+var loc2;
 
 if (loc) {
     (async function() {
         document.querySelector('#code').value = await fetch(loc).then(x => x.text());
         load();
+        loc2 = loc3;
     })()
 }

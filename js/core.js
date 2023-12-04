@@ -122,6 +122,12 @@ Canvas.prototype.render = function () {
 
     this.ctx.putImageData(imgData,0,0,0,0,this.width,this.height)
 
+    if (window.loc2 && loc2.get('only') == 'true') {
+        this.stopNow = true;
+        document.querySelector('canvas').id = 'main2';
+        return;
+    }
+
     let x = (this.pageX - this.elem.getBoundingClientRect().x - scrollX + this.x) - 0.5 - this.radius * this.upscale;
     let y = (this.pageY - this.elem.getBoundingClientRect().y - scrollY + this.y) - 0.5 - this.radius * this.upscale;
 
@@ -198,12 +204,14 @@ var handler = new TickHandler(canvas);
 
 (async function () {
     while (true) {
+        if (canvas.stopNow) return;
         handler.tick();
         await new Promise(resolve => setTimeout(resolve, 1000 / 70));
     }
 })();
 
 setInterval(() => {
+    if (canvas.stopNow) return;
     if (canvas.clicked) canvas.click();
     this.canvas.render();
 }, 1000 / 60);
