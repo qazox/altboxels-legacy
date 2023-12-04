@@ -7,6 +7,10 @@ body {
     text-align: center;
 }
 
+#no-overflow {
+    overflow: hidden;
+}
+
 canvas {
     margin: auto;
     display: block;

@@ -125,6 +125,7 @@ Canvas.prototype.render = function () {
     if (window.loc2 && loc2.get('only') == 'true') {
         this.stopNow = true;
         document.querySelector('canvas').id = 'main2';
+        document.querySelector('body').id = 'no-overflow';
         return;
     }
 
