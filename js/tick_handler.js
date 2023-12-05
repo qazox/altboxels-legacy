@@ -13,7 +13,7 @@ TickHandler.prototype.tick = function () {
 
     let canvas = this.canvas;
 
-    this.canvas.noTick = [];
+    this.canvas.noTick = new Uint16Array(canvas.blocks.length);
 
     for (let i = 0; i < canvas.width * canvas.height; i++) {
         let cx = Math.floor(i / canvas.height);
@@ -33,7 +33,7 @@ TickHandler.prototype.tick = function () {
             for (let y = -1; y < 2; y++) {
                 let blok = this.canvas.getBlock(cx + x, cy + y);
     
-                allEq = allEq && (blok == currBlock);
+                allEq = (blok == currBlock);
     
                 if (!allEq) break;
             }

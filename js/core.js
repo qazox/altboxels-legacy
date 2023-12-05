@@ -102,16 +102,18 @@ Canvas.prototype.render = function () {
         
                 if (block.color[0] != -1) {
         
-                    let val = Math.pow((temp + 310)/310, 1);
+                    let val = (temp + 310)/310;
+                    if (val < -2.861) val = -2.861;
         
                     pixels[i2*4] = (block.color[0] - temp / 1e28) * val ;
-                    pixels[i2*4+1] = (block.color[1] - temp / 1e28) * Math.pow(val,0.1);
-                    pixels[i2*4+2] = (block.color[2] - temp / 1e28) * Math.pow(val,0.01);
+                    pixels[i2*4+1] = (block.color[1] - temp / 1e28) * (val * 0.259 + 0.741);
+                    pixels[i2*4+2] = (block.color[2] - temp / 1e28) *  (val * 0.023 + 0.977);
                     pixels[i2*4+3] = block.color[3] * 255 + Math.abs(val-1) * 100 || 255;
                 } else {
-                    pixels[i2*4] = ((handler.ticks*69 ) % (Math.log(temp)*0.6969)) * 255 / (Math.log(temp)*0.6969);
-                    pixels[i2*4+1] = ((handler.ticks*69)  % (Math.log(temp)*0.420420)) * 255 /(Math.log(temp)*0.420420);
-                    pixels[i2*4+2] = ((handler.ticks*69)  % (Math.log(temp)*0.13371337)) * 255 /  (Math.log(temp)*0.13371337);
+                    let lg = Math.log(temp);
+                    pixels[i2*4] = ((handler.ticks*69 ) % (lg*0.6969)) * 255 / (lg*0.6969);
+                    pixels[i2*4+1] = ((handler.ticks*69)  % (lg*0.420420)) * 255 /(lg*0.420420);
+                    pixels[i2*4+2] = ((handler.ticks*69)  % (lg*0.13371337)) * 255 /  (lg*0.13371337);
                     pixels[i2*4+3] = 255;
                 }
             }
@@ -203,13 +205,11 @@ Canvas.prototype.click = function () {
 var canvas = new Canvas(240, 135, 4);
 var handler = new TickHandler(canvas);
 
-(async function () {
-    while (true) {
-        if (canvas.stopNow) return;
+setInterval(() => {
+    if (canvas.stopNow) return;
         handler.tick();
-        await new Promise(resolve => setTimeout(resolve, 1000 / 70));
-    }
-})();
+}, 1000 / 60);
+
 
 setInterval(() => {
     if (canvas.stopNow) return;

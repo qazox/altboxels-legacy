@@ -29,8 +29,10 @@ function cohesion(event, radius, isAll = 0) {
 
             if (factor == 0) continue;
 
-            force[0] += x / (0.1+Math.sqrt(x*x + y*y)) * factor;
-            force[1] += y / (0.1+Math.sqrt(x*x + y*y)) * factor;
+            let dist = 0.1 + (1/8 * (-x * -x - y * y + 8) * (x * x + y * y));
+
+            force[0] += x / dist * factor;
+            force[1] += y / dist * factor;
         }
     }
 
