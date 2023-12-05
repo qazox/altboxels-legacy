@@ -12,7 +12,7 @@ TickHandler.prototype.tick = function () {
     if (this.noTick) return;
 
     let canvas = this.canvas;
-
+ 
     this.canvas.noTick = new Uint16Array(canvas.blocks.length);
 
     for (let i = 0; i < canvas.width * canvas.height; i++) {
