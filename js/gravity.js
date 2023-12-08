@@ -35,7 +35,7 @@ function gravity(event, mass, fluid, saturation) {
 
             let massDiff = (mass / mass2) - (mass2 / mass);
             let x2 = x / fluid;
-            let dirDiff = (y - 1 + fluid) / (1/8 * (-x2 * -x2 - y * y + 8) * (x2 * x2 + y * y));
+            let dirDiff = (y - 1 + fluid) / (1/8 * (x2 * x2 - y * y + 8) * (x2 * x2 + y * y));
 
 
             if (y == 0 && x == 0) dirDiff = 0;

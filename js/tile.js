@@ -78,9 +78,6 @@ TileManager.prototype.loadSet = function (namespace, tiles) {
 
         elem.addEventListener('click', () => {
             this.sel = tile.number;
-            if (this.used[this.sel]) return;
-            this.used[this.sel] = true;
-            gtag('event', 'conversion', {'send_to': 'AW-11425746055/dLrPCMOT4vsYEIeZnMgq'});
         })
     }
 }
